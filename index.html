@@ -1,0 +1,1716 @@
+<title>Quadre de Rendiment</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap">
+
+<style>
+/* Identitat corporativa: oxblood #7A2338 com a color principal, llautó #B08D57
+   d'accent i neutres de pedra càlida. Contrastos comprovats en clar i en fosc.
+   Els colors d'estat (correcte, a vigilar, greu) es mantenen convencionals. */
+:root{
+  --titol:"Outfit","Public Sans",Arial,sans-serif;
+  --cos:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  --xifra:"Roboto Mono",ui-monospace,Menlo,monospace;
+  --ground:#F4F1ED; --surface:#FFFFFF; --ink:#241F1D; --ink-2:#4C443F; --muted:#7B7169;
+  --line:#E2DBD3; --line-2:#BDB2A7; --fila:#FAF8F5; --graella:#EDE7E0;
+  --nit:#231017; --primari:#7A2338; --accent-clar:#B08D57; --accent-viu:#C7A268;
+  --accent:#B08D57; --primari-text:#8A2740; --sobre-accent:#231017;
+  --q1:#7A2338; --q2:#4A6B8A; --q3:#B08D57;
+  --avis:#8A5A12; --avis-fons:#FBF4E6;
+  --st-no:#9E2B2B; --st-proces:#8A5A12; --st-si:#2F6B4A;
+  --ombra:0 1px 2px rgba(36,31,29,.05), 0 12px 32px rgba(36,31,29,.09);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#16100F; --surface:#1E1618; --ink:#F0EAE5; --ink-2:#C2B6AE; --muted:#918379;
+    --line:#332528; --line-2:#4A383B; --fila:#241A1C; --graella:#2C2023;
+    --nit:#120A0D; --primari:#B04A5E; --accent-clar:#C9A870; --accent-viu:#DCBE86;
+    --accent:#C9A870; --primari-text:#E08FA0; --sobre-accent:#120A0D;
+    --q1:#B04A5E; --q2:#7FA3C4; --q3:#C9A870;
+    --avis:#D9A441; --avis-fons:#211906;
+    --st-no:#DE7373; --st-proces:#D9A441; --st-si:#5FAF87;
+    --ombra:0 1px 2px rgba(0,0,0,.35), 0 14px 34px rgba(0,0,0,.55);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#16100F; --surface:#1E1618; --ink:#F0EAE5; --ink-2:#C2B6AE; --muted:#918379;
+  --line:#332528; --line-2:#4A383B; --fila:#241A1C; --graella:#2C2023;
+  --nit:#120A0D; --primari:#B04A5E; --accent-clar:#C9A870; --accent-viu:#DCBE86;
+  --accent:#C9A870; --primari-text:#E08FA0; --sobre-accent:#120A0D;
+  --q1:#B04A5E; --q2:#7FA3C4; --q3:#C9A870;
+  --avis:#D9A441; --avis-fons:#211906;
+  --st-no:#DE7373; --st-proces:#D9A441; --st-si:#5FAF87;
+  --ombra:0 1px 2px rgba(0,0,0,.35), 0 14px 34px rgba(0,0,0,.55);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:var(--cos);font-size:15px;line-height:1.55;
+  -webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{margin:0;font-family:var(--titol);text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.barra{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 22px;
+  background:var(--nit);color:#fff;border-bottom:3px solid var(--accent-clar)}
+.barra .marca{font-family:var(--titol);font-weight:800;letter-spacing:.14em;font-size:13px;text-transform:uppercase}
+.barra .sep{width:1px;height:18px;background:rgba(255,255,255,.24)}
+.barra .temp{font-size:12.5px;letter-spacing:.1em;color:rgba(255,255,255,.72);text-transform:uppercase}
+.barra nav{margin-left:auto;display:flex;gap:8px}
+.barra nav a{text-decoration:none;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;
+  padding:7px 13px;border-radius:2px;color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.2)}
+.barra nav a[aria-current="page"]{background:var(--accent);color:var(--nit);border-color:var(--accent)}
+.barra nav a:hover{border-color:var(--accent);color:#fff}
+.barra nav a[aria-current="page"]:hover{color:var(--nit)}
+
+.wrap{max-width:1340px;margin:0 auto;padding:26px 22px 80px}
+
+.boto{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font:inherit;font-size:12.5px;
+  font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:9px 16px;border-radius:2px;
+  border:1px solid var(--line-2);background:var(--surface);color:var(--ink);text-decoration:none}
+.boto:hover{border-color:var(--accent-viu);color:var(--primari-text)}
+.boto.principal{background:var(--primari);border-color:var(--primari);color:#fff}
+.boto.principal:hover{background:var(--accent-viu);border-color:var(--accent-viu);color:#fff}
+.eines{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 20px}
+.eines .nota{font-size:12.5px;color:var(--muted)}
+
+/* --- capçalera de l'avaluació --- */
+.cap-quadre h1{font-size:clamp(26px,3.4vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.05}
+.cap-quadre p{margin:6px 0 0;color:var(--ink-2);max-width:66ch;font-size:14.5px}
+
+/* --- selector de jugadors --- */
+.jugadors{display:flex;gap:6px;flex-wrap:wrap;margin:20px 0 8px}
+.jugadors button{font:inherit;font-size:12px;font-weight:600;letter-spacing:.04em;cursor:pointer;
+  padding:7px 12px;border-radius:2px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2)}
+.jugadors button:hover{border-color:var(--accent-viu);color:var(--ink)}
+.jugadors button[aria-pressed="true"]{background:var(--primari);border-color:var(--primari);color:#fff}
+.jugadors button .n{opacity:.65;margin-right:6px}
+
+.fitxa-jug{display:flex;gap:14px;flex-wrap:wrap;align-items:center;background:var(--surface);
+  border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:3px;
+  padding:14px 18px;margin-bottom:22px;box-shadow:var(--ombra)}
+.fitxa-jug input.nom{font:inherit;font-family:var(--titol);font-weight:800;font-size:22px;
+  letter-spacing:-.02em;border:0;border-bottom:1px dashed var(--line-2);background:transparent;
+  color:inherit;padding:2px 4px;min-width:240px;flex:1 1 240px}
+.fitxa-jug input.nom::placeholder{color:var(--muted);font-weight:600}
+.fitxa-jug .anar{margin-left:auto}
+
+/* --- blocs --- */
+.bloc{margin:0 0 34px}
+.bloc > h2{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--primari-text);
+  font-weight:700;padding-bottom:8px;border-bottom:2px solid var(--accent);display:inline-block;margin-bottom:14px}
+.bloc > h2 .cua{color:var(--muted);letter-spacing:.1em;margin-left:10px;font-weight:600}
+
+.marc{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  box-shadow:var(--ombra);overflow-x:auto}
+table.r{border-collapse:separate;border-spacing:0;width:100%;min-width:1080px;font-size:12.5px}
+table.r th,table.r td{border-right:1px solid var(--graella);border-bottom:1px solid var(--graella);
+  padding:7px 10px;vertical-align:top;text-align:left}
+table.r thead th{position:sticky;top:0;z-index:3;background:var(--primari);color:#fff;
+  font-family:var(--titol);font-weight:700;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;vertical-align:middle;border-right-color:rgba(255,255,255,.18)}
+table.r thead th.niv{background:var(--nit)}
+table.r thead th small{display:block;font-weight:500;letter-spacing:.02em;text-transform:none;
+  font-size:9.5px;opacity:.72;margin-top:2px}
+table.r td.qual{background:var(--fila);font-weight:600;width:170px;min-width:170px;color:var(--ink)}
+table.r td.qual span{display:block;font-weight:400;font-size:11px;color:var(--muted);margin-top:2px}
+table.r td.niv{width:19%;min-width:150px;color:var(--ink-2);font-size:11.5px;line-height:1.42}
+table.r td.q{width:58px;min-width:58px;padding:0;text-align:center;background:var(--primari)}
+table.r td.o{width:150px;min-width:150px;padding:0}
+
+select.p{-webkit-appearance:none;appearance:none;font:inherit;width:100%;height:34px;border:0;
+  background:transparent;color:#fff;font-weight:700;font-size:13px;text-align:center;
+  text-align-last:center;cursor:pointer}
+select.p:hover{background:color-mix(in srgb,#fff 12%,transparent)}
+select.p option{color:#16241A;background:#fff;font-weight:600}
+select.p.buida{color:rgba(255,255,255,.45)}
+select.p:focus{outline:2px solid var(--accent);outline-offset:-2px}
+input.o{font:inherit;width:100%;height:34px;border:0;background:transparent;color:var(--ink-2);
+  font-size:11.5px;padding:0 9px}
+input.o:focus{outline:2px solid var(--accent);outline-offset:-2px}
+input.o::placeholder{color:transparent}
+input.o:hover::placeholder{color:var(--muted)}
+
+/* formalitat */
+.formalitat{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end}
+.pct{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:12px 14px;
+  box-shadow:var(--ombra);min-width:132px}
+.pct label{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.pct input{font:inherit;font-family:var(--titol);font-weight:700;font-size:20px;width:74px;
+  border:0;border-bottom:1px dashed var(--line-2);background:transparent;color:inherit;padding:2px 0;
+  -moz-appearance:textfield}
+.pct input::-webkit-outer-spin-button,.pct input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.pct .u{color:var(--muted);font-weight:600}
+.pct.total{background:var(--primari);border-color:var(--primari);color:#fff}
+.pct.total label{color:rgba(255,255,255,.75)}
+.pct.total .v{font-family:var(--titol);font-weight:800;font-size:24px}
+
+/* resum trimestral */
+.resum{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.resum-c{border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:2px;
+  padding:12px 14px;background:var(--surface);box-shadow:var(--ombra)}
+.resum-c .re{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.resum-c .rn{font-family:var(--titol);font-weight:800;font-size:26px;line-height:1.1;
+  font-variant-numeric:tabular-nums;margin-top:3px}
+.resum-c .rq{display:flex;gap:10px;margin-top:6px;font-size:11px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.resum-c .rq i{width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:4px;vertical-align:0}
+
+.llegenda{display:flex;gap:16px;flex-wrap:wrap;margin:0 0 12px;font-size:12px;color:var(--ink-2)}
+.llegenda i{width:11px;height:11px;border-radius:2px;display:inline-block;margin-right:6px;vertical-align:-1px}
+.llegenda svg{vertical-align:-2px;margin-right:5px}
+
+/* ---------- INFORME ---------- */
+.full{background:var(--surface);border:1px solid var(--line);border-radius:3px;box-shadow:var(--ombra);
+  display:grid;grid-template-columns:64px minmax(0,1fr);overflow:hidden}
+.full + .full{margin-top:26px}
+.banda{background:var(--primari);color:#fff;display:flex;align-items:center;justify-content:center}
+.banda span{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--titol);
+  font-weight:800;font-size:18px;letter-spacing:.26em;text-transform:uppercase;white-space:nowrap}
+.cos{padding:30px clamp(20px,4vw,46px) 34px;min-width:0}
+.titol-informe{font-family:var(--titol);font-weight:800;text-align:center;
+  font-size:clamp(21px,3.5vw,34px);line-height:1.12;letter-spacing:-.015em;
+  padding-bottom:16px;border-bottom:2px solid var(--nit)}
+.titol-informe small{display:block;font-size:.44em;font-weight:600;letter-spacing:.22em;
+  color:var(--primari-text);margin-top:7px;text-transform:uppercase}
+.fila-seccio{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  margin-top:18px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.etiqueta-seccio{font-family:var(--titol);font-weight:800;font-size:13px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--primari-text)}
+.programa select{font:inherit;font-family:var(--titol);font-weight:700;font-size:11px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--sobre-accent);background:var(--accent);
+  border:0;border-radius:2px;padding:5px 10px;cursor:pointer;-webkit-appearance:none;appearance:none;text-align:center}
+.programa select option{background:#fff;color:var(--ink);letter-spacing:0}
+.qui{font-family:var(--titol);font-weight:700;font-size:13px;color:var(--muted)}
+
+.identitat{display:grid;grid-template-columns:92px minmax(0,1fr) auto;gap:20px;align-items:center;margin-top:22px}
+@media (max-width:760px){.identitat{grid-template-columns:1fr}}
+.foto{width:92px;height:92px;border:1px solid var(--line-2);border-radius:2px;background:var(--fila);
+  display:flex;align-items:center;justify-content:center;font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);text-align:center;padding:6px}
+.identitat h2{font-family:var(--titol);font-size:clamp(25px,4.2vw,42px);font-weight:800;
+  letter-spacing:-.03em;line-height:1.02}
+.identitat h2 .buit{color:var(--muted)}
+.fitxa{display:flex;flex-direction:column;gap:4px;text-align:right;font-size:13px}
+.fitxa .l{display:flex;gap:8px;justify-content:flex-end;align-items:baseline;flex-wrap:wrap}
+.fitxa .l b{font-family:var(--titol);font-weight:700;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted)}
+.fitxa input{font:inherit;font-family:var(--titol);font-weight:700;border:0;
+  border-bottom:1px dashed var(--line-2);background:transparent;color:inherit;text-align:right;
+  padding:1px 2px;min-width:36px}
+.fitxa input:hover{border-bottom-color:var(--accent-viu)}
+.fitxa input::placeholder{color:var(--muted);font-weight:500}
+.fitxa .mit{font-family:var(--titol);font-weight:700}
+
+.seccio{margin-top:30px}
+.seccio > h3{font-family:var(--titol);font-weight:800;font-size:13px;letter-spacing:.2em;
+  text-transform:uppercase;padding-bottom:7px;border-bottom:2px solid var(--accent);display:inline-block}
+.seccio.centrat{text-align:center}
+.seccio.centrat > h3{border-bottom-color:var(--nit)}
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:28px;margin-top:18px}
+.trio{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:26px;margin-top:18px}
+.sub{font-family:var(--titol);font-weight:700;font-size:11.5px;letter-spacing:.16em;
+  text-transform:uppercase;text-align:center;margin:0 0 10px}
+.sub em{display:block;font-style:normal;font-size:10px;letter-spacing:.1em;color:var(--muted);
+  font-weight:600;margin-top:2px}
+
+/* barres agrupades per trimestre */
+.grup{display:flex;flex-direction:column;gap:9px}
+.grup-fila{font-size:12px}
+.grup-fila .et{display:block;color:var(--ink-2);margin-bottom:3px}
+.pistes{display:flex;flex-direction:column;gap:2px}
+.pista{position:relative;height:9px;background:var(--graella);border-radius:2px}
+.pista .fill{position:absolute;left:0;top:0;bottom:0;border-radius:0 3px 3px 0}
+.pista .tic{position:absolute;top:-2px;bottom:-2px;width:1px;background:var(--surface);opacity:.7}
+.pista .vq{position:absolute;right:-22px;top:-3px;font-size:10px;font-weight:700;
+  font-variant-numeric:tabular-nums;font-family:var(--titol)}
+.grup-fila .pistes{padding-right:24px}
+
+.camp-text{border:1px dashed var(--line-2);border-radius:2px;padding:11px 13px;min-height:70px;
+  font-size:13.5px;line-height:1.6;color:var(--ink-2);text-align:left;white-space:pre-wrap}
+.camp-text:hover{border-color:var(--accent-viu)}
+.camp-text:focus{outline:2px solid var(--accent);outline-offset:-1px;border-style:solid}
+.camp-text.gran{min-height:120px;font-size:14.5px;max-width:78ch;margin:0 auto}
+.camp-text.mitja{min-height:82px;max-width:80ch;margin:0 auto}
+.camp-text:empty::before{content:attr(data-ph);color:var(--muted);font-style:italic}
+
+table.detall{width:100%;border-collapse:collapse;font-size:12px}
+table.detall caption{text-align:left;font-family:var(--titol);font-weight:700;font-size:10.5px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink);padding:14px 0 6px}
+table.detall th,table.detall td{border-bottom:1px solid var(--line);padding:5px 8px;text-align:left}
+table.detall thead th{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+table.detall td.n,table.detall th.n{text-align:center;width:44px;font-variant-numeric:tabular-nums;font-weight:600}
+table.detall tr.tot td{border-bottom:2px solid var(--nit);font-weight:700;background:var(--fila)}
+.taules{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 32px}
+
+.peu{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);display:flex;gap:20px;
+  flex-wrap:wrap;justify-content:space-between;font-size:11px;color:var(--muted)}
+.tornar{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:600;color:var(--ink-2);text-decoration:none}
+.tornar:hover{color:var(--ink)}
+.cap-eines{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:16px}
+.nota-pag{font-size:12px;color:var(--muted)}
+
+.plafo{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);
+  border-radius:3px;padding:18px 20px;margin:0 0 20px;box-shadow:var(--ombra)}
+.plafo-t{font-family:var(--titol);font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+.plafo-p{margin:6px 0 12px;font-size:14px;color:var(--ink-2);max-width:72ch}
+.plafo textarea{width:100%;height:120px;resize:vertical;font-family:ui-monospace,"SF Mono",Menlo,monospace;
+  font-size:11.5px;line-height:1.45;padding:10px 12px;border:1px solid var(--line-2);border-radius:3px;
+  background:var(--fila);color:var(--ink)}
+.plafo-b{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+
+.tip{position:fixed;pointer-events:none;z-index:50;background:var(--nit);color:#fff;padding:6px 9px;
+  border-radius:3px;font-size:11.5px;line-height:1.35;box-shadow:0 6px 20px rgba(0,0,0,.3);
+  opacity:0;transition:opacity .12s;max-width:280px}
+.tip b{font-family:var(--titol)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- PÀGINA D'ENTRADA ---------- */
+.portada{min-height:calc(100vh - 190px);display:flex;align-items:center;justify-content:center;padding:20px 0}
+.porta{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--accent);
+  border-radius:4px;box-shadow:var(--ombra);padding:38px clamp(24px,5vw,44px);width:100%;max-width:460px}
+.porta .marca-p{font-family:var(--titol);font-weight:800;letter-spacing:.2em;font-size:11px;
+  text-transform:uppercase;color:var(--primari-text);text-align:center}
+.porta h1{font-size:clamp(24px,4vw,32px);font-weight:800;letter-spacing:-.02em;text-align:center;margin-top:8px}
+.porta .peu-p{text-align:center;color:var(--muted);font-size:13.5px;margin-top:8px}
+.porta form{display:flex;flex-direction:column;gap:18px;margin-top:28px}
+.porta .c{display:flex;flex-direction:column;gap:6px}
+.porta label{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.porta select,.porta input{font:inherit;font-family:var(--titol);font-weight:700;font-size:17px;
+  padding:12px 14px;border:1px solid var(--line-2);border-radius:3px;background:var(--surface);
+  color:var(--ink);width:100%}
+.porta select{-webkit-appearance:none;appearance:none;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+  background-position:calc(100% - 20px) 22px,calc(100% - 14px) 22px;background-size:6px 6px;background-repeat:no-repeat}
+.porta select:focus,.porta input:focus{border-color:var(--accent-viu);outline:2px solid var(--accent);outline-offset:-1px}
+.porta .entrar{font:inherit;font-family:var(--titol);font-weight:800;font-size:14px;
+  letter-spacing:.16em;text-transform:uppercase;padding:15px;border:0;border-radius:3px;cursor:pointer;
+  background:var(--primari);color:#fff;margin-top:4px}
+.porta .entrar:hover{background:var(--accent-viu)}
+.porta .entrar:disabled{background:var(--line-2);cursor:not-allowed}
+.enllac-ex{font:inherit;font-size:13px;background:none;border:0;padding:0;cursor:pointer;
+  color:var(--primari-text);text-decoration:underline;text-underline-offset:3px}
+.enllac-ex:hover{color:var(--accent-viu)}
+
+/* ---------- REGISTRE DIARI ---------- */
+.cap-registre{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);
+  border-radius:3px;padding:16px 20px;box-shadow:var(--ombra);margin-bottom:20px}
+.cap-registre .qui-r{font-family:var(--titol);font-weight:800;font-size:22px;letter-spacing:-.02em}
+.cap-registre .quan{font-size:13px;color:var(--muted);margin-top:2px}
+.reg-marc{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  box-shadow:var(--ombra);overflow-x:auto}
+table.reg{border-collapse:separate;border-spacing:0;width:100%;min-width:900px;font-size:12.5px}
+table.reg th,table.reg td{border-right:1px solid var(--graella);border-bottom:1px solid var(--graella);
+  padding:0;text-align:center}
+table.reg thead th{background:var(--nit);color:#fff;font-family:var(--titol);font-weight:700;
+  font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:9px 5px;
+  border-right-color:rgba(255,255,255,.16);vertical-align:middle;line-height:1.25}
+table.reg thead th:first-child{text-align:left;padding-left:14px}
+table.reg td.jug-r{text-align:left;padding:8px 14px;background:var(--fila);min-width:190px;
+  font-weight:600;white-space:nowrap}
+table.reg td.jug-r .d{font-family:var(--titol);font-weight:800;color:var(--muted);
+  display:inline-block;width:24px;font-variant-numeric:tabular-nums}
+table.reg td.cl{min-width:64px;padding:3px}
+table.reg tfoot td{background:var(--fila);font-family:var(--titol);font-weight:800;
+  font-size:14px;padding:9px 4px;font-variant-numeric:tabular-nums;border-top:2px solid var(--nit)}
+table.reg tfoot td:first-child{text-align:left;padding-left:14px;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted)}
+
+.marca-b{width:100%;height:34px;border:1.5px solid var(--line);border-radius:3px;background:transparent;
+  cursor:pointer;font:inherit;font-family:var(--titol);font-weight:800;font-size:13px;
+  color:var(--line-2);display:flex;align-items:center;justify-content:center;transition:none}
+.marca-b:hover{border-color:var(--marca-c);color:var(--marca-c)}
+.marca-b[aria-pressed="true"]{background:var(--marca-c);border-color:var(--marca-c);color:#fff}
+td.cl.bo{--marca-c:var(--st-si)} td.cl.avis{--marca-c:var(--st-proces)}
+td.cl.mal{--marca-c:var(--st-no)} td.cl.info{--marca-c:var(--q2)} td.cl.neutre{--marca-c:var(--muted)}
+
+.validar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:18px}
+.validar .nota{font-size:13px;color:var(--muted);max-width:60ch}
+.boto.gran{font-size:13.5px;padding:14px 26px}
+
+/* ---------- PÀGINA D'EQUIP ---------- */
+.cap-equip{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);
+  border-radius:3px;padding:22px 24px;box-shadow:var(--ombra);margin-bottom:26px}
+.cap-equip .dades{display:flex;gap:26px;flex-wrap:wrap;align-items:flex-end}
+.cap-equip .c{display:flex;flex-direction:column;gap:3px}
+.cap-equip label{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.cap-equip input{font:inherit;font-family:var(--titol);font-weight:800;border:0;
+  border-bottom:1px dashed var(--line-2);background:transparent;color:inherit;padding:2px 3px}
+.cap-equip input:hover,.cap-equip input:focus{border-bottom-color:var(--accent-viu)}
+.cap-equip input.gran{font-size:26px;letter-spacing:-.02em;min-width:280px}
+.cap-equip input.petit{font-size:16px;min-width:130px}
+.cap-equip input::placeholder{color:var(--muted);font-weight:600}
+
+.plantilla-t{width:100%;border-collapse:separate;border-spacing:0;font-size:13.5px;
+  background:var(--surface);border:1px solid var(--line);border-radius:3px;box-shadow:var(--ombra);overflow:hidden}
+.plantilla-t th,.plantilla-t td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--graella)}
+.plantilla-t thead th{background:var(--primari);color:#fff;font-family:var(--titol);
+  font-weight:700;font-size:10px;letter-spacing:.13em;text-transform:uppercase}
+.plantilla-t tbody tr:last-child td{border-bottom:0}
+.plantilla-t tbody tr:hover td{background:var(--fila)}
+.plantilla-t td.dorsal{width:52px;font-family:var(--titol);font-weight:800;
+  color:var(--muted);font-variant-numeric:tabular-nums}
+.plantilla-t td.jug a{font-family:var(--titol);font-weight:700;font-size:15px;
+  color:inherit;text-decoration:none;border-bottom:2px solid var(--accent)}
+.plantilla-t td.jug a:hover{border-bottom-color:var(--accent-viu);color:var(--primari-text)}
+.plantilla-t td.jug .sense{color:var(--muted);font-weight:600}
+.plantilla-t td.n{text-align:center;font-variant-numeric:tabular-nums;font-weight:700;
+  font-family:var(--titol);width:88px}
+.plantilla-t td.n small{display:block;font-family:var(--cos);font-weight:400;
+  font-size:10.5px;color:var(--muted);letter-spacing:.02em}
+.plantilla-t td.acc{text-align:right;white-space:nowrap;width:190px}
+.plantilla-t td.acc a.acc-p{background:var(--primari);border-color:var(--primari);color:#fff}
+.plantilla-t td.acc a.acc-p:hover{background:var(--accent-viu);border-color:var(--accent-viu);color:#fff}
+.plantilla-t td.acc a{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  text-decoration:none;color:var(--ink-2);border:1px solid var(--line-2);border-radius:2px;
+  padding:5px 9px;margin-left:6px;display:inline-block}
+.plantilla-t td.acc a:hover{border-color:var(--accent-viu);color:var(--primari-text)}
+.xip{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:2px;
+  border:1px solid currentColor}
+.xip .llum{width:8px;height:8px;border-radius:50%;background:currentColor}
+.xip.no{color:var(--st-no)} .xip.proces{color:var(--st-proces)} .xip.si{color:var(--st-si)}
+.xip.cap{color:var(--muted);border-style:dashed}
+
+.pendent{background:var(--avis-fons);border:1px solid color-mix(in srgb,var(--avis) 35%,transparent);
+  border-left:4px solid var(--avis);border-radius:3px;padding:16px 18px;margin-top:26px}
+.pendent h3{font-family:var(--titol);font-size:13px;font-weight:700;color:var(--avis);margin-bottom:5px}
+.pendent p{font-size:14px;color:var(--ink-2);max-width:72ch}
+
+/* taula d'indicadors de l'equip */
+.ind-marc{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  box-shadow:var(--ombra);overflow-x:auto}
+table.ind{border-collapse:separate;border-spacing:0;width:100%;min-width:940px;font-size:12.5px}
+table.ind th,table.ind td{border-right:1px solid var(--graella);border-bottom:1px solid var(--graella);
+  padding:0;text-align:center}
+table.ind thead th{background:var(--nit);color:#fff;font-family:var(--titol);font-weight:700;
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:9px 8px;
+  border-right-color:rgba(255,255,255,.16);vertical-align:middle}
+table.ind thead th:first-child{text-align:left}
+table.ind td.tipus{text-align:left;padding:10px 14px;background:var(--fila);min-width:180px}
+table.ind td.tipus b{font-family:var(--titol);font-weight:700;font-size:14px;display:block}
+table.ind td.tipus .comptes{display:flex;gap:6px;margin-top:5px}
+table.ind td.tipus .comptes label{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;display:flex;align-items:center;gap:4px}
+table.ind td.tipus .comptes input{width:46px;font:inherit;font-family:var(--titol);
+  font-weight:700;font-size:12px;text-align:center;border:1px solid var(--line-2);border-radius:2px;
+  background:var(--surface);color:inherit;padding:2px 3px;-moz-appearance:textfield}
+table.ind .vt{font-family:var(--titol);font-weight:800;font-size:17px;
+  font-variant-numeric:tabular-nums;display:block;padding-top:9px}
+table.ind .cel small{display:block;font-size:10px;color:var(--muted);padding-bottom:9px;margin-top:1px}
+table.ind td.cel.calc{background:color-mix(in srgb,var(--st-si) 8%,transparent)}
+table.ind td.cel.buida{color:var(--line-2);font-size:16px;font-weight:700}
+table.ind td.tipus .marca-d{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);font-weight:700;border:1px solid var(--line);border-radius:2px;padding:2px 6px}
+table.ind input.ic{width:100%;height:44px;font:inherit;font-family:var(--titol);font-weight:800;
+  font-size:15px;text-align:center;border:0;background:transparent;color:var(--ink);
+  font-variant-numeric:tabular-nums;-moz-appearance:textfield}
+table.ind input::-webkit-outer-spin-button,table.ind input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+table.ind input.ic:focus{outline:2px solid var(--accent);outline-offset:-2px}
+table.ind input.ic::placeholder{color:var(--line-2)}
+table.ind td.cel{position:relative;min-width:74px}
+table.ind td.cel::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--marca-c);opacity:.55}
+td.cel.bo{--marca-c:var(--st-si)} td.cel.avis{--marca-c:var(--st-proces)}
+td.cel.mal{--marca-c:var(--st-no)} td.cel.info{--marca-c:var(--q2)} td.cel.neutre{--marca-c:var(--line-2)}
+.ind-llegenda{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:11.5px;color:var(--muted)}
+.ind-llegenda i{width:14px;height:3px;display:inline-block;margin-right:6px;vertical-align:3px}
+
+/* semàfor del repte individual */
+.semafor{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;justify-content:center}
+.semafor button{font:inherit;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;padding:8px 14px;border-radius:2px;border:1.5px solid var(--line-2);
+  background:var(--surface);color:var(--muted);display:inline-flex;align-items:center;gap:7px}
+.semafor button .llum{width:11px;height:11px;border-radius:50%;background:currentColor;opacity:.32}
+.semafor button:hover{border-color:currentColor}
+.semafor button[aria-pressed="true"]{color:#fff}
+.semafor button[aria-pressed="true"] .llum{opacity:1;background:#fff}
+.semafor button.no{color:var(--st-no)}
+.semafor button.proces{color:var(--st-proces)}
+.semafor button.si{color:var(--st-si)}
+.semafor button.no[aria-pressed="true"]{background:var(--st-no);border-color:var(--st-no);color:#fff}
+.semafor button.proces[aria-pressed="true"]{background:var(--st-proces);border-color:var(--st-proces);color:#fff}
+.semafor button.si[aria-pressed="true"]{background:var(--st-si);border-color:var(--st-si);color:#fff}
+
+/* formalitat destacada dins l'informe */
+.form-inf{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-top:16px}
+.form-c{border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:2px;
+  padding:12px 14px;background:var(--surface);text-align:center}
+.form-c .fe{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.form-c .fv{font-family:var(--titol);font-weight:800;font-size:27px;line-height:1.1;
+  font-variant-numeric:tabular-nums;margin-top:3px}
+.form-c.total{background:var(--primari);border-color:var(--primari);border-top-color:var(--nit);color:#fff}
+.form-c.total .fe{color:rgba(255,255,255,.75)}
+
+/* gràfic de barres vertical */
+.cols{display:flex;align-items:flex-end;justify-content:space-around;gap:10px;height:168px;
+  padding:0 4px;border-bottom:1.5px solid var(--line-2);position:relative}
+.cols .guia{position:absolute;left:0;right:0;border-top:1px dashed var(--graella);pointer-events:none}
+.col{flex:1 1 0;position:relative;height:100%;min-width:0}
+.col .columna{position:absolute;left:0;right:0;bottom:0;margin:0 auto;max-width:46px;
+  background:var(--primari);border-radius:3px 3px 0 0}
+.col .vc{position:absolute;left:0;right:0;text-align:center;font-family:var(--titol);
+  font-weight:800;font-size:14px;font-variant-numeric:tabular-nums}
+.cols-et{display:flex;justify-content:space-around;gap:10px;padding:7px 4px 0}
+.cols-et span{flex:1 1 0;text-align:center;font-size:10.5px;color:var(--ink-2);line-height:1.2;
+  min-width:0;overflow-wrap:anywhere;hyphens:auto}
+.eix{display:flex;justify-content:space-between;font-size:9.5px;color:var(--muted);margin-top:6px}
+
+/* =========================================================
+   LLENGUATGE DE FORMES
+   El contrari de l'anterior: corbes generoses, pastilles i punts
+   rodons, ombres suaus en comptes de regles de cabell. Les xifres
+   van en monoespaiada perquè les columnes de números quadrin.
+   ========================================================= */
+.marc, .ind-marc, .reg-marc, .porta, .cap-registre, .cap-equip, .plafo,
+.resum-c, .form-c, .targeta, .full, .plantilla-t{border-radius:14px !important}
+.boto, .porta .entrar, .barra nav a, .jugadors button,
+.semafor button, .xip, .plantilla-t td.acc a, .marca-d{border-radius:999px !important}
+.marca-b, select.p, input.o, .camp-text, .col .columna, .pista, .pista .fill,
+table.ind input.ic, .porta select, .porta input, .plafo textarea{border-radius:8px !important}
+.semafor button .llum, .xip .llum{border-radius:50% !important}
+.cols{border-bottom:0}
+.col .columna{border-radius:8px 8px 0 0 !important}
+
+/* xifres tabulars */
+.n, .vt, .rn, .fv, .vc, .dorsal,
+table.reg tfoot td, table.detall td.n, table.detall th.n,
+.resum-c .rn, .form-c .fv, .cap-equip input.petit,
+.porta input[type="date"]{
+  font-family:var(--xifra) !important;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em;
+}
+select.p, table.ind input.ic, .pct input{font-family:var(--xifra) !important}
+
+/* títols amples i oberts */
+h1, h2, h3, h4{letter-spacing:-.01em}
+.cap-quadre h1, .porta h1, .identitat h2, .titol-informe{letter-spacing:-.03em;font-weight:700}
+.bloc > h2, .etiqueta-seccio, .titol-seccio, .seccio > h3{letter-spacing:.16em;font-weight:600}
+
+/* superfícies toves: ombra en comptes de vora */
+.marc, .ind-marc, .reg-marc, .plantilla-t, .cap-registre, .cap-equip, .porta, .plafo{
+  border:0 !important;box-shadow:var(--ombra);
+}
+.resum-c, .form-c, .targeta{border:1px solid var(--line) !important;box-shadow:none}
+.cap-registre, .cap-equip{border-left:0 !important}
+
+/* barra superior amb el llautó com a filet */
+.barra{border-bottom:1px solid rgba(255,255,255,.12)}
+.barra nav a[aria-current="page"]{background:var(--accent);color:var(--sobre-accent);border-color:var(--accent)}
+.barra nav a[aria-current="page"]:hover{color:var(--sobre-accent)}
+.barra .marca{letter-spacing:.16em;font-family:var(--titol)}
+
+/* botons plens i rodons */
+.boto{border-width:1px;letter-spacing:.08em;font-weight:600}
+.boto.principal{background:var(--primari);border-color:var(--primari)}
+.boto.principal:hover{background:var(--nit);border-color:var(--nit)}
+.porta .entrar{background:var(--primari);letter-spacing:.14em;font-weight:700}
+.porta .entrar:hover{background:var(--nit)}
+
+/* capçaleres de taula: fons cru, text fosc, sense blocs negres */
+table.r thead th, table.ind thead th, table.reg thead th, .plantilla-t thead th{
+  font-family:var(--titol) !important;letter-spacing:.09em;font-weight:600;
+  background:var(--fila) !important;color:var(--ink-2) !important;
+  border-bottom:2px solid var(--line) !important;border-right-color:var(--line) !important;
+}
+table.r thead th.niv{background:var(--graella) !important}
+table.r td.q, td.num, tr.valor td.num{background:var(--primari)}
+.plantilla-t tbody tr:hover td{background:var(--fila)}
+
+/* el gràfic de columnes, amb el color principal */
+.col .columna{background:var(--primari)}
+
+/* ---------- IMPRESSIÓ ---------- *//* ---------- IMPRESSIÓ ---------- */
+@page{size:A4 portrait;margin:11mm}
+@media print{
+  :root{--ground:#FFF;--surface:#FFF;--ink:#16241A;--ink-2:#3B463E;--muted:#6E7A70;
+    --line:#C9D2C6;--line-2:#AEB9AC;--fila:#F2F5F0;--graella:#E3E9E0;--ombra:none}
+  html,body{background:#fff!important}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  .barra,.cap-eines,.tip,.eines,.jugadors,.plafo{display:none!important}
+  .wrap{max-width:none;padding:0;margin:0}
+  .full{border:0;box-shadow:none;border-radius:0;grid-template-columns:42px minmax(0,1fr)}
+  .full + .full{margin-top:0}
+  .banda span{font-size:14px}
+  .cos{padding:0 0 0 15px}
+  .titol-informe{font-size:22px;padding-bottom:9px}
+  .titol-informe small{margin-top:4px}
+  .fila-seccio{margin-top:11px;padding-bottom:6px}
+  .etiqueta-seccio{font-size:11px}
+  .programa select{font-size:9.5px;padding:3px 7px}
+  .qui{font-size:10.5px}
+  .identitat{margin-top:11px;grid-template-columns:72px minmax(0,1fr) auto;gap:15px}
+  .identitat h2{font-size:25px}
+  .foto{width:72px;height:72px;font-size:7.5px}
+  .fitxa{font-size:10.5px;gap:2px}
+  svg.radar{max-height:166px}
+  .resum{grid-template-columns:repeat(5,1fr);gap:7px}
+  .resum-c{padding:6px 8px}
+  .resum-c .re{font-size:7.5px;letter-spacing:.06em}
+  .resum-c .rn{font-size:16px}
+  .resum-c .rq{font-size:8px;margin-top:2px}
+  .seccio{margin-top:13px;break-inside:avoid}
+  .seccio > h3{font-size:11px;padding-bottom:4px}
+  .duo{grid-template-columns:1fr 1fr;gap:16px;margin-top:12px}
+  .trio{grid-template-columns:1fr 1fr 1fr;gap:13px;margin-top:12px}
+  .sub{font-size:10px;margin-bottom:7px}
+  .llegenda{font-size:9.5px;margin-bottom:7px}
+  .grup{gap:6px}
+  .grup-fila{font-size:9.5px}
+  .pista{height:7px}
+  .camp-text,.camp-text.mitja,.camp-text.gran{border:1px solid var(--line);min-height:0;
+    font-size:11px;line-height:1.5;padding:8px 10px}
+  .camp-text:empty::before{content:""}
+  table.detall{font-size:9px}
+  table.detall th,table.detall td{padding:2px 5px}
+  table.detall caption{font-size:9.5px;padding:8px 0 3px}
+  .taules{grid-template-columns:repeat(3,1fr);gap:0 16px}
+  .cols{height:118px}
+  .col .vc{font-size:11px}
+  .cols-et span{font-size:8.5px}
+  .form-inf{gap:8px;margin-top:11px}
+  .form-c{padding:6px 8px}
+  .form-c .fv{font-size:17px}
+  .semafor{margin-top:8px}
+  .semafor button{font-size:8.5px;padding:5px 9px}
+  .peu{margin-top:12px;font-size:9px}
+  a[href]::after{content:""}
+  .salt{break-before:page}
+}
+</style>
+
+<div class="barra">
+  <span class="marca" id="marcaEntitat"></span>
+  <span class="sep"></span>
+  <span class="temp" id="marcaEquip"></span>
+  <nav id="nav"></nav>
+</div>
+
+<div class="wrap" id="app"></div>
+<div class="tip" id="tip"></div>
+
+<script>
+const RUBRICA = {"formalitat":["Assistència","Puntualitat","Roba"],"responsabilitat":["Respecte","Esforç","Autonomia","Lideratge","Transferència"],"blocs":[{"clau":"motrius","titol":"HABILITATS MOTRIUS","items":[{"nom":"Passada","sub":null,"curt":"Passada","nivells":["Li costa passar la pilota amb precisió o potència, fins i tot quan està sol.","Passa bé en exercicis d'entrenament, però al partit perd la pilota o s'equivoca.","Passa amb bona tècnica i precisió al peu del company, però sense buscar superar línies.","Passa la pilota a l'espai o al peu millor orientat per crear un avantatge clar."]},{"nom":"Control","sub":null,"curt":"Control","nivells":["Se li n'escapa la pilota al controlar, inclús si li ve a poc a poc i sol.","Controla bé en estàtic, però al partit se li n'escapa per la pressió o precipitació.","Orienta bé el control per no perdre-la, però sense buscar enganyar ni desbordar el rival.","Controla orientat per superar la pressió o preparar la següent acció amb avantatge."]},{"nom":"Conducció","sub":null,"curt":"Conducció","nivells":["Li costa conduir la pilota sense perdre-la o sense mirar contínuament els peus.","Condueix bé si té espai al davant, però al partit s'embarrona quan li surten rivals.","Condueix amb el cap aixecat i la pilota enganxada, però simplement avança sense atraure rivals.","Condueix amb canvis de ritme, atraient rivals per obrir espais i trobar el company lliure."]},{"nom":"Regat","sub":null,"curt":"Regat","nivells":["No aconsegueix superar cap rival en situacions d'1vs1.","Fa regats en exercicis, però al partit tria malament el moment i perd la pilota.","Supera el rival per velocitat o tècnica quan té espai, però sense elegir moments.","Desborda el rival llegint la seva posició per desequilibrar i crear una superioritat."]},{"nom":"Finalització","sub":null,"curt":"Finalització","nivells":["No aconsegueix xutar a porteria amb força o precisió, ni tan sols quan està sol.","Xuta bé a l'entrenament, però al partit precipita el xut, li surt fluix o fora.","Xuta a porteria amb bona tècnica i força, però al mig o sense buscar els espais buits.","Xuta a porteria buscant conscientment el pal o el buit que deixa el porter per assegurar el gol."]},{"nom":"Perfil","sub":null,"curt":"Perfil","nivells":["Rep d'esquena al camp o mal orientat, sense veure què passa al seu voltant.","Es perfila bé en situacions simples, però al partit necessita tocs de més per veure el camp.","S'orienta bé abans de rebre per veure el camp, però sense aprofitar-ho per accelerar la jugada.","S'orienta perfectament abans de rebre per veure tot el camp i jugar directament a un sol toc."]}]},{"clau":"ambPilota","titol":"MOMENT AMB PILOTA (POSSESSIÓ)","items":[{"nom":"GESTIÓN DEL ESPACIO","sub":"Ofrecer apoyos","curt":"Gestió de l'espai","nivells":["Es queda aturat sense oferir ajuda al company que té la pilota.","Es mou per demanar-la, però no aconsegueix trobar l'espai lliure.","S'ofereix constantment per rebre la pilota i donar opcions de passada.","Llegeix el joc: es mou per rebre lliure de marca o per arrossegar rivals i alliberar un company."]},{"nom":"FINALIZACIÓN","sub":"Decisión y finalización","curt":"Finalització","nivells":["Juga de manera egoista o dubta massa quan ha de decidir.","Intenta fer la passada o xutar, però tria la pitjor opció de la jugada.","Decideix bé: passa la pilota al company millor ubicat o xuta si té avantatge.","Genera gol o opció clara: assisteix al company sol o defineix amb molta solvència."]},{"nom":"GESTIÓN DEL BALÓN","sub":"Ritmo de juego","curt":"Gestió de la pilota","nivells":["Comet errades tècniques greus i perd pilotes fàcils.","Reté massa la pilota o accelera la jugada sense cap necessitat.","Juga ràpid a 1-2 tocs i dona continuïtat a la circulació de l'equip.","Domina el ritme del partit: accelera o frena el joc segons convingui a l'equip."]},{"nom":"COMUNICACIÓN","sub":"Hablar y orientar","curt":"Comunicació","nivells":["Juga en silenci, aïllat i d'esquena al joc.","Demana la pilota només utilitzant la veu però estant aturat.","Demana la pilota marcant clarament la zona amb els braços.","Es perfila lliure, assenyala la línia de passada i dirigeix la posició dels companys."]}]},{"clau":"sensePilota","titol":"MOMENT SENSE PILOTA (RECUPERACIÓ)","items":[{"nom":"GESTIÓN DEL ESPACIO","sub":"Reducir opciones","curt":"Gestió de l'espai","nivells":["Defensa de manera individual sense mirar la posició de la resta de l'equip.","Arriba tard a la marca i deixa passar la pilota o el rival fàcilment.","Tapa el rival orientant-lo cap a la banda o cap a les ajudes dels seus companys.","S'anticipa i talla la línia de passada abans que es generi la jugada rival."]},{"nom":"PROTECCIÓN DEL ÁREA","sub":"Incomodar y tapar tiro","curt":"Protecció de l'àrea","nivells":["Deixa que el rival xuti o avanci metres sense oferir cap mena d'oposició.","Entra de manera precipitada, fa falta o deixa xutar facilment.","Escurça espais ràpidament, molesta el rival i tapa xuts o centrades.","Lidera la defensa, frena l'avanç del rival i bloqueja remats decisius."]},{"nom":"GESTIÓN del BALÓN","sub":"Reacción tras pérdida","curt":"Gestió de la pilota","nivells":["Es desconnecta de la jugada quan el superen o perden la pilota.","Replega a poc a poc o només ho fa quan els companys o l'entrenador li ho criden.","Baixa a ajudar ràpidament tan bon punt superen un company d'equip.","Es manté sempre ben col·locat i 100% connectat a la dinàmica del joc."]},{"nom":"COMUNICACIÓN","sub":"Organizar en defensa","curt":"Comunicació","nivells":["No parla; només corre darrere la pilota sense organitzar-se.","Avisa els companys només quan veu una situació de perill molt clar.","Dona ordres defensives clares: apretar la pilota, bascular o replegar.","Es comunica amb la resta d'equip mitjançant la veu i la postura corporal."]}]},{"clau":"valors","titol":"VALORS DE CLUB","items":[{"nom":"PROACTIVIDAD","sub":"Iniciativa y Actitud","curt":"Proactivitat","nivells":["Actitud passiva o apàtica; espera que li donin instruccions explícites per actuar.","Mostra iniciativa ocasional en moments favorables, però decau davant les dificultats.","Actiu en entrenaments i partits; proposa solucions i manté bona energia de forma constant.","Líder d'iniciativa; contagia energia positiva, s'anticipa als problemes i proposa solucions."]},{"nom":"COOPERACIÓN","sub":"Compañerismo y Trabajo en Equipo","curt":"Cooperació","nivells":["Juga o actua de forma individualista, ignorant les necessitats del col·lectiu.","Coopera quan se li sol·licita directament, però li costa anteposar l'equip als seus èxits.","Treballa en equip, dona suport als companys al camp i celebra els èxits col·lectius.","Genera cohesió; ajuda el company que ho necessita i anteposa sempre el grup."]},{"nom":"ORGULLO","sub":"Resiliencia e Identidad","curt":"Orgull","nivells":["Es rendeix o mostra frustració davant el marcador o les errades, abaixant els braços fàcilment.","Lluita en situacions normals, però es desmotiva quan el context del partit és advers.","Competeix amb intensitat i defensa la samarreta amb orgull en qualsevol situació.","Resiliència màxima; davant l'adversitat reacciona amb orgull positiu i inspira la resta."]},{"nom":"RESPONSABILIDAD","sub":"Compromiso y Puntualidad","curt":"Responsabilitat","nivells":["Assistència o puntualitat irregular; descuida el material i mostra poc compromís.","Compleix amb el bàsic (arribar a temps), però requereix recordatoris per cuidar detalls.","Puntual, respectuós amb el material, el cos tècnic i les normes de convivència.","Compromís intatxable; cuida el material comú i lidera amb l'exemple en tots els aspectes."]}]}],"nivells":["En inici","En desenvolupament","Consolidat","Domini"]};
+
+const QS = ["Q1", "Q2", "Q3"];
+const COLQ = ["var(--q1)", "var(--q2)", "var(--q3)"];
+const NIVELLS = [
+  ["–0,5", "Nivell entreno"], ["0,5 – 1,5", "Nivell inicial"], ["1,5 – 2,5", "En desenvolupament"],
+  ["2,5 – 3,5", "Nivell alt"], ["+3,5", "Nivell molt alt"]
+];
+const CAMPS_FITXA = [
+  ["equip", "Equip", "Aleví A"], ["categoria", "Categoria", "Aleví"],
+  ["naixement", "Any de naixement", "2013"], ["dorsal", "Dorsal", "10"],
+  ["anysFGE", "Anys a la FGE", "3"], ["educador", "Educador/a · tècnic/a", "Nom i cognoms"]
+];
+const PROGRAMES = ["Programa general", "Programa de perfeccionament"];
+const NJUGADORS = 15;
+
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const num = (v, d = 1) => (v === null || v === undefined || v === "" || isNaN(v)) ? "" : Number(v).toFixed(d).replace(".", ",");
+
+/* ============ ESTAT ============ */
+const CLAU = "fge-avaluacio-v2";
+const POT_DESAR = (() => {
+  try{ localStorage.setItem(CLAU + "-t", "1"); localStorage.removeItem(CLAU + "-t"); return true; }
+  catch(e){ return false; }
+})();
+
+function jugadorBuit(idx){
+  return {
+    idx, nom: null, periode: "Temporada 2025-26",
+    fitxa: {}, textos: {},
+    formalitat: Object.fromEntries(RUBRICA.formalitat.map(n => [n, null])),
+    respons: RUBRICA.responsabilitat.map(n => ({nom: n, q: [null, null, null]})),
+    blocs: RUBRICA.blocs.map(b => ({
+      clau: b.clau, titol: b.titol,
+      items: b.items.map(it => ({
+        nom: it.nom, sub: it.sub, curt: it.curt, nivells: it.nivells,
+        q: [null, null, null], obs: [null, null, null]
+      }))
+    }))
+  };
+}
+function nou(){ return Array.from({length: NJUGADORS}, (_, i) => jugadorBuit(i + 1)); }
+
+function fusiona(desat){
+  return nou().map((p, i) => {
+    const q = desat[i]; if (!q) return p;
+    p.nom = q.nom ?? null;
+    p.periode = q.periode || p.periode;
+    p.fitxa = q.fitxa || {};
+    p.textos = q.textos || {};
+    Object.keys(p.formalitat).forEach(k => { if (q.formalitat && q.formalitat[k] != null) p.formalitat[k] = q.formalitat[k]; });
+    p.respons.forEach((r, ri) => { const s = q.respons?.[ri]; if (s && Array.isArray(s.q)) r.q = s.q.slice(0, 3); });
+    p.blocs.forEach((b, bi) => b.items.forEach((it, ii) => {
+      const s = q.blocs?.[bi]?.items?.[ii];
+      if (s){ if (Array.isArray(s.q)) it.q = s.q.slice(0, 3); if (Array.isArray(s.obs)) it.obs = s.obs.slice(0, 3); }
+    }));
+    return p;
+  });
+}
+function carrega(){
+  try{
+    const cru = localStorage.getItem(CLAU);
+    if (!cru) return nou();
+    const d = JSON.parse(cru);
+    if (Array.isArray(d)) return fusiona(d);
+    if (d && Array.isArray(d.jugadors)){
+      EQUIP = Object.assign(equipBuit(), d.equip || {});
+      REGISTRES = d.registres || {};
+      if (d.sessio) SESSIO = Object.assign(SESSIO, d.sessio);
+      TIPUS_SESSIO.forEach(([k]) => { EQUIP.indicadors[k] = Object.assign({dies: null, reg: null}, (d.equip?.indicadors || {})[k] || {}); });
+      return fusiona(d.jugadors);
+    }
+    return nou();
+  }catch(e){ return nou(); }
+}
+let DADES = carrega();
+let ACTUAL = 1;
+let pendent = null;
+function desa(){
+  clearTimeout(pendent);
+  pendent = setTimeout(() => {
+    try{ localStorage.setItem(CLAU, JSON.stringify(
+      {equip: EQUIP, jugadors: DADES, registres: REGISTRES, sessio: SESSIO})); }catch(e){}
+  }, 250);
+}
+
+/* El que es marca al registre és sempre allò que s'ha de fer constar.
+   Els tres comportaments són els únics negatius de conducta; no marcar-ne cap
+   vol dir que el comportament ha estat correcte. */
+const COMPORTAMENTS = ["compLleu", "compGreu", "compMoltGreu"];
+/* Indicadors que descriuen l'absència: es compten sobre tots els registres.
+   La resta només tenen sentit si el jugador hi era, i van sobre les assistències. */
+const DABSENCIA = ["assistencia", "noPres", "justif"];
+const sobreRegistres = k => DABSENCIA.includes(k);
+const INDICADORS = [
+  ["assistencia", "Assistència", "bo"], ["retard", "Retard", "avis"],
+  ["justif", "Justif.", "info"], ["noPres", "No pres.", "mal"],
+  ["noRoba", "No roba", "neutre"],
+  ["compLleu", "Comp. lleu", "avis"], ["compGreu", "Comp. greu", "mal"],
+  ["compMoltGreu", "Comp. molt greu", "mal"],
+  ["familia", "Família", "neutre", "partit"], ["transport", "Transport", "neutre", "partit"]
+];
+/* comportament correcte: va assistir i no se li ha marcat cap conducta */
+const esCorrecte = r => !!(r && r.assistencia) && !COMPORTAMENTS.some(k => r && r[k]);
+/* els indicadors amb quart element "partit" no s'apliquen als entrenaments */
+const indicadorsDe = tipus => INDICADORS.filter(i => !i[3] || i[3] === tipus);
+const TIPUS_SESSIO = [["entrenament", "Entrenament"], ["partit", "Partit"]];
+
+function equipBuit(){
+  return {
+    entitat: null, nom: null, dataInici: null, dataFi: null,
+    indicadors: Object.fromEntries(TIPUS_SESSIO.map(([k]) => [k, {dies: null, reg: null}]))
+  };
+}
+let EQUIP = equipBuit();
+let REGISTRES = {};
+
+/* ============ CÀLCULS ============ */
+const mitjanaDe = xs => { const v = xs.filter(x => typeof x === "number"); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; };
+const mitjanaItem = it => mitjanaDe(it.q);
+const mitjanaBloc = b => mitjanaDe(b.items.map(mitjanaItem));
+const mitjanaBlocQ = (b, qi) => mitjanaDe(b.items.map(it => it.q[qi]));
+const mitjanaRespons = p => mitjanaDe(p.respons.map(r => mitjanaDe(r.q)));
+function formalitatTotal(p){
+  const v = Object.values(p.formalitat).filter(x => typeof x === "number");
+  return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null;
+}
+function mitjanaGlobal(p){
+  return mitjanaDe(p.blocs.map(mitjanaBloc).concat([mitjanaRespons(p)]));
+}
+function nivell(v){
+  if (v === null) return "";
+  if (v < 0.5) return "Nivell entreno";
+  if (v < 1.5) return "Nivell inicial";
+  if (v < 2.5) return "En desenvolupament";
+  if (v < 3.5) return "Nivell alt";
+  return "Nivell molt alt";
+}
+
+/* ============ TOOLTIP ============ */
+const tip = document.getElementById("tip");
+function mostraTip(e, html){
+  tip.innerHTML = html; tip.style.opacity = "1";
+  const r = tip.getBoundingClientRect();
+  let x = e.clientX + 14, y = e.clientY - r.height - 10;
+  if (x + r.width > innerWidth - 8) x = e.clientX - r.width - 14;
+  if (y < 8) y = e.clientY + 16;
+  tip.style.left = x + "px"; tip.style.top = y + "px";
+}
+const amagaTip = () => { tip.style.opacity = "0"; };
+document.addEventListener("scroll", amagaTip, true);
+
+/* ============ CONTROLS ============ */
+function tria(valor, attrs, etiqueta){
+  const opcions = ["", 1, 2, 3, 4].map(o =>
+    `<option value="${o}"${String(valor ?? "") === String(o) ? " selected" : ""}>${o === "" ? "·" : o}</option>`).join("");
+  return `<select class="p${valor == null ? " buida" : ""}" ${attrs} aria-label="${esc(etiqueta)}">${opcions}</select>`;
+}
+
+/* ============ ENTRADA I REGISTRE DIARI ============ */
+const EQUIPS = ["Juvenil"];
+let SESSIO = {equip: EQUIPS[0], data: "", tipus: "entrenament"};
+
+function avui(){
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+function dataLlarga(iso){
+  if (!iso) return "";
+  const [a, m, d] = iso.split("-").map(Number);
+  const dies = ["diumenge", "dilluns", "dimarts", "dimecres", "dijous", "divendres", "dissabte"];
+  const mesos = ["gener", "febrer", "març", "abril", "maig", "juny", "juliol",
+                 "agost", "setembre", "octubre", "novembre", "desembre"];
+  const dt = new Date(a, m - 1, d);
+  const mes = mesos[m - 1];
+  const de = "aeiouàèéíòóú".includes(mes[0]) ? "d'" : "de ";
+  return `${dies[dt.getDay()]}, ${d} ${de}${mes} de ${a}`;
+}
+const clauSessio = () => `${SESSIO.equip}|${SESSIO.data}|${SESSIO.tipus}`;
+const parteixClau = c => { const [equip, data, tipus] = c.split("|"); return {equip, data, tipus: tipus || "entrenament"}; };
+const nomTipus = t => (TIPUS_SESSIO.find(([k]) => k === t) || [, "Entrenament"])[1];
+function registreDe(){
+  if (!REGISTRES[clauSessio()]) REGISTRES[clauSessio()] = {};
+  return REGISTRES[clauSessio()];
+}
+function nomJugador(n){
+  const p = DADES.find(x => x.idx === n);
+  return p && p.nom ? p.nom : null;
+}
+
+function vistaInici(){
+  return `
+  <div class="portada">
+    <div class="porta">
+      <div class="marca-p">${esc(EQUIP.entitat || "Quadre de Rendiment")}</div>
+      <h1>Registre diari</h1>
+      <p class="peu-p">Tria l'equip i el dia per passar llista.</p>
+      <form id="formEntrar">
+        <div class="c">
+          <label for="in-equip">Equip</label>
+          <select id="in-equip">
+            ${EQUIPS.map(e => `<option${e === SESSIO.equip ? " selected" : ""}>${esc(e)}</option>`).join("")}
+          </select>
+        </div>
+        <div class="c">
+          <label for="in-tipus">Tipus de sessió</label>
+          <select id="in-tipus">
+            ${TIPUS_SESSIO.map(([k, et]) => `<option value="${k}"${k === SESSIO.tipus ? " selected" : ""}>${esc(et)}</option>`).join("")}
+          </select>
+        </div>
+        <div class="c">
+          <label for="in-data">Dia</label>
+          <input id="in-data" type="date" value="${esc(SESSIO.data || avui())}">
+        </div>
+        <button class="entrar" type="submit">Entrar</button>
+      </form>
+      <p class="peu-p" style="margin-top:20px">
+        <button type="button" class="enllac-ex" id="verExemple">Veure un exemple d'un mes sencer</button>
+      </p>
+    </div>
+  </div>`;
+}
+
+function vistaRegistre(){
+  const reg = registreDe();
+  const items = indicadorsDe(SESSIO.tipus);
+  const totals = Object.fromEntries(items.map(([k]) => [k, 0]));
+
+  const files = Array.from({length: NJUGADORS}, (_, i) => {
+    const n = i + 1;
+    const r = reg[n] || {};
+    items.forEach(([k]) => { if (r[k]) totals[k]++; });
+    const nom = nomJugador(n);
+    return `<tr>
+      <td class="jug-r"><span class="d">${n}</span>${nom ? esc(nom) : `<span style="color:var(--muted);font-weight:500">Jugador ${n}</span>`}</td>
+      ${items.map(([k, et, to]) => `<td class="cl ${to}">
+        <button type="button" class="marca-b" data-reg="${n}" data-item="${k}"
+          aria-pressed="${!!r[k]}" aria-label="${esc(et)} · jugador ${n}">${r[k] ? "✓" : ""}</button>
+      </td>`).join("")}
+    </tr>`;
+  }).join("");
+
+  return `
+  <div class="cap-registre">
+    <div>
+      <div class="qui-r">${esc(SESSIO.equip)} · ${esc(nomTipus(SESSIO.tipus))}</div>
+      <div class="quan">${esc(dataLlarga(SESSIO.data))}</div>
+    </div>
+    <a class="boto" href="#/inici">Canvia equip, tipus o dia</a>
+  </div>
+
+  <div class="reg-marc">
+    <table class="reg">
+      <thead><tr>
+        <th>Jugador/a</th>
+        ${items.map(([, et]) => `<th>${esc(et)}</th>`).join("")}
+      </tr></thead>
+      <tbody>${files}</tbody>
+      <tfoot><tr>
+        <td>Total del dia</td>
+        ${items.map(([k]) => `<td data-tot="${k}">${totals[k]}</td>`).join("")}
+      </tr></tfoot>
+    </table>
+  </div>
+
+  <div class="validar">
+    <p class="nota">Clica una casella per marcar-la. Es desa sol.${
+      SESSIO.tipus === "entrenament" ? " Família i transport només es demanen als partits." : ""}</p>
+    <button class="boto principal gran" type="button" id="validar">Validar i veure el resum →</button>
+  </div>`;
+}
+
+/* Omple la rúbrica d'un jugador. Cada bloc rep una matriu [item][trimestre]. */
+function omplePerfil(p, dades){
+  Object.assign(p.fitxa, dades.fitxa);
+  p.formalitat = dades.formalitat;
+  p.blocs.forEach(b => {
+    const q = dades.blocs[b.clau];
+    if (q) b.items.forEach((it, i) => { if (q[i]) it.q = q[i].slice(); });
+  });
+  dades.respons.forEach((q, i) => { if (p.respons[i]) p.respons[i].q = q.slice(); });
+  p.textos = dades.textos;
+}
+
+/* Les avaluacions de l'exemple, coherents amb el que diu el registre de cadascun. */
+const EXEMPLE_AVALUACIONS = [
+  {
+    idx: 1,
+    fitxa: {equip: "Juvenil", categoria: "Juvenil", naixement: "2009", dorsal: "4",
+            anysFGE: "6", educador: "Roger Coris", programa: "Programa general"},
+    formalitat: {"Assistència": 100, "Puntualitat": 93, "Roba": 93},
+    blocs: {
+      motrius:     [[2,3,3],[3,3,3],[3,3,4],[2,2,3],[2,3,3],[3,3,3]],
+      ambPilota:   [[3,3,3],[2,3,3],[3,3,3],[3,4,4]],
+      sensePilota: [[3,3,4],[3,3,3],[3,3,4],[3,4,4]],
+      valors:      [[4,4,4],[4,4,4],[3,4,4],[4,4,4]]
+    },
+    respons: [[4,4,4],[4,4,4],[3,3,4],[3,3,4],[2,3,3]],
+    textos: {
+      repteEstat: "si",
+      repte: "Atrevir-se més a l'un contra un i buscar la porteria quan té l'espai al davant.",
+      ambPilota: "Sempre s'ofereix i dona continuïtat al joc; juga a pocs tocs i no perd pilotes fàcils. Se li proposa que, quan té espai per encarar, s'atreveixi en comptes de tornar-la enrere.",
+      sensePilota: "Molt constant en la pressió i sempre ben col·locat. Dirigeix la línia amb la veu i avisa els companys abans que arribi el perill.",
+      valors: "És el mirall de l'equip: puntual, cuida el material i tira dels altres quan les coses no van bé. No ha tingut ni una sola incidència de conducta en tot el mes.",
+      final: "En Marc ha estat el jugador més regular del grup. Ha vingut a tots els entrenaments i a tots els partits, i això es nota en com ha crescut trimestre rere trimestre, sobretot en la conducció i en la comunicació dins del camp.\n\nEl salt que li demanem ara és de gosadia: té la tècnica i la lectura per decidir més ell, i encara resol massa sovint cap enrere. Si s'atreveix, guanyarà ell i guanyarà l'equip.\n\nGràcies per l'exemple que ha donat tot el mes."
+    }
+  },
+  {
+    idx: 2,
+    fitxa: {equip: "Juvenil", categoria: "Juvenil", naixement: "2009", dorsal: "10",
+            anysFGE: "2", educador: "Roger Coris", programa: "Programa general"},
+    formalitat: {"Assistència": 80, "Puntualitat": 83, "Roba": 100},
+    blocs: {
+      motrius:     [[3,3,4],[3,3,3],[4,4,4],[4,4,4],[3,3,3],[2,2,3]],
+      ambPilota:   [[2,2,3],[3,3,3],[2,3,3],[2,2,2]],
+      sensePilota: [[2,2,2],[2,2,3],[2,2,2],[2,2,3]],
+      valors:      [[2,3,3],[2,2,3],[3,3,3],[2,2,2]]
+    },
+    respons: [[3,3,3],[2,3,3],[2,2,3],[2,2,2],[2,2,2]],
+    textos: {
+      repteEstat: "proces",
+      repte: "Venir a tots els entrenaments del mes i avisar sempre abans si no pot. Sense això, la resta no arrenca.",
+      ambPilota: "Quan té la pilota és dels que més desequilibren: condueix i regateja amb molta facilitat. Se li proposa aixecar el cap abans de sortir i buscar el company lliure quan el tanquen dos rivals.",
+      sensePilota: "És on li queda més camí. Quan l'equip perd la pilota es desconnecta i triga a tornar. Li demanem que la primera reacció sigui córrer cap enrere, encara que no arribi.",
+      valors: "Té bona relació amb els companys, però les faltes d'assistència i les dues incidències de conducta d'aquest mes pesen. Ha reaccionat bé quan se li ha parlat.",
+      final: "En Nil és un dels jugadors amb més talent del grup: amb la pilota als peus fa coses que molt pocs poden fer, i quan ve i està connectat es nota molt al camp.\n\nAra bé, aquest mes ha faltat tres dies i n'hi ha un que no va avisar. També hi ha hagut dues situacions de conducta que hem parlat amb ell. Els números de l'avaluació ho reflecteixen: molt amunt en habilitats, més just en el moment sense pilota i en responsabilitat.\n\nEl repte del proper trimestre és senzill de dir i difícil de fer: ser-hi. Si hi és, el creixement vindrà sol."
+    }
+  }
+];
+
+/* Exemple d'un mes: 5 setmanes × (dimarts i dijous entrenament + dissabte partit).
+   Dos jugadors amb perfils contraris perquè es vegi què fa cada indicador. */
+function exempleMes(){
+  REGISTRES = {};
+  const inici = new Date(2026, 8, 1);           // dimarts 1 de setembre de 2026
+  const iso = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  const sessions = [];
+  for (let w = 0; w < 5; w++){
+    [[0, "entrenament"], [2, "entrenament"], [4, "partit"]].forEach(([dif, tipus]) => {
+      const d = new Date(inici); d.setDate(inici.getDate() + w * 7 + dif);
+      sessions.push({data: iso(d), tipus});
+    });
+  }
+
+  DADES[0].nom = "Marc Puig";     // molt regular
+  DADES[1].nom = "Nil Ferrer";    // irregular
+  for (let n = 3; n <= NJUGADORS; n++) if (!DADES[n - 1].nom) DADES[n - 1].nom = null;
+
+  sessions.forEach((se, i) => {
+    const dia = {};
+    for (let n = 1; n <= NJUGADORS; n++) dia[n] = {};
+
+    /* Marc Puig: hi és sempre; un retard i un dia sense la roba */
+    dia[1].assistencia = true;
+    if (i === 4) dia[1].retard = true;
+    if (i === 9) dia[1].noRoba = true;
+
+    /* Nil Ferrer: falta tres dies, dos justificats, i dues conductes */
+    if (i === 3 || i === 10 || i === 11){
+      dia[2].noPres = true;
+      if (i !== 11) dia[2].justif = true;
+    } else {
+      dia[2].assistencia = true;
+      if (i === 1 || i === 7) dia[2].retard = true;
+      if (i === 6) dia[2].compLleu = true;
+      if (i === 13) dia[2].compGreu = true;
+    }
+
+    /* la resta de l'equip, per donar volum als totals */
+    for (let n = 3; n <= NJUGADORS; n++){
+      const falta = (n + i) % 11 === 0;
+      if (falta){ dia[n].noPres = true; if ((n + i) % 22 === 0) dia[n].justif = true; }
+      else {
+        dia[n].assistencia = true;
+        if ((n * 3 + i) % 13 === 0) dia[n].retard = true;
+        if ((n + i * 2) % 17 === 0) dia[n].compLleu = true;
+      }
+    }
+    if (se.tipus === "partit"){
+      dia[4].familia = dia[4].assistencia || false;
+      dia[7].transport = dia[7].assistencia || false;
+    }
+    REGISTRES[`Juvenil|${se.data}|${se.tipus}`] = dia;
+  });
+
+  /* i les avaluacions dels dos jugadors, que és el que alimenta els informes */
+  EXEMPLE_AVALUACIONS.forEach(d => omplePerfil(DADES[d.idx - 1], d));
+
+  EQUIP.entitat = EQUIP.entitat || "Club Esportiu Exemple";
+  EQUIP.nom = "Juvenil";
+  EQUIP.dataInici = sessions[0].data;
+  EQUIP.dataFi = sessions[sessions.length - 1].data;
+  SESSIO = {equip: "Juvenil", data: sessions[sessions.length - 1].data, tipus: "partit"};
+  desa();
+}
+
+/* ============ VISTA: RESUM DE L'EQUIP ============ */
+function vistaResum(){
+  const camp = (k, cls, ph, tipus) => `<input class="${cls}" type="${tipus || "text"}"
+    value="${esc(EQUIP[k] || "")}" placeholder="${esc(ph)}" data-equip="${k}" aria-label="${esc(ph)}">`;
+
+  /* la columna de comportament correcte es calcula, no es marca enlloc */
+  const COLS = [];
+  INDICADORS.forEach(i => {
+    if (i[0] === "compLleu") COLS.push(["correcte", "Comp. correcte", "bo", null, true]);
+    COLS.push(i);
+  });
+  const capIndicadors = COLS.map(([, et]) => `<th>${esc(et)}</th>`).join("");
+  const files = TIPUS_SESSIO.map(([k, et]) => {
+    const t = totalsEquip(k);
+    return `<tr>
+      <td class="tipus">
+        <b>${esc(et)}</b>
+        <span class="comptes">
+          <span class="marca-d">Dies ${t.dies}</span><span class="marca-d">Reg. ${t.reg}</span>
+        </span>
+      </td>
+      ${COLS.map(([ck, , to, nomes, calc]) => {
+        if (nomes && nomes !== k) return `<td class="cel neutre buida">–</td>`;
+        const base = (calc || !sobreRegistres(ck)) ? t.assistencia : t.reg;
+        const pct = base ? Math.round(t[ck] / base * 100) : null;
+        return `<td class="cel ${to}${calc ? " calc" : ""}"><span class="vt">${t[ck]}</span>${
+          pct === null ? "" : `<small>${pct}%</small>`}</td>`;
+      }).join("")}
+    </tr>`;
+  }).join("");
+
+  const XIP = {no: "No assolit", proces: "En procés", si: "Assolit"};
+  const jugadors = Array.from({length: NJUGADORS}, (_, i) => {
+    const n = i + 1;
+    const p = DADES.find(x => x.idx === n);
+    const r = resumRegistre(n);
+    const pct = r.dies ? Math.round(r.assistencia / r.dies * 100) : null;
+    const pctComp = r.assistencia ? Math.round(r.correcte / r.assistencia * 100) : null;
+    const m = p ? mitjanaGlobal(p) : null;
+    const est = p?.textos?.repteEstat || "";
+    const nom = nomJugador(n);
+    return `<tr>
+      <td class="dorsal">${n}</td>
+      <td class="jug">${nom ? esc(nom) : `<span class="sense">Jugador ${n}</span>`}</td>
+      <td class="n">${r.dies ? `${r.assistencia}/${r.dies}` : "·"}<small>${pct === null ? "sense registres" : pct + "% assistència"}</small></td>
+      <td class="n">${r.dies ? r.retard : "·"}<small>retards</small></td>
+      <td class="n">${r.dies ? r.justif : "·"}<small>justificats</small></td>
+      <td class="n">${r.assistencia ? `${r.correcte}/${r.assistencia}` : "·"}<small>${
+        pctComp === null ? "comportament" : pctComp + "% correcte"}</small></td>
+      <td class="n">${num(m) || "·"}<small>${m === null ? "sense avaluar" : nivell(m)}</small></td>
+      <td><span class="xip ${est || "cap"}"><span class="llum"></span>${est ? XIP[est] : "Sense repte"}</span></td>
+      <td class="acc">${p ? `<a class="acc-p" href="#/quadre/${n}">Avaluació trimestral</a>` : ""}</td>
+    </tr>`;
+  }).join("");
+
+  return `
+  <div class="cap-quadre">
+    <h1>Resum de l'equip</h1>
+    <p>Els comptes surten del que has marcat als registres diaris. Filtra per dates si vols un període concret.</p>
+  </div>
+
+  <div class="cap-equip">
+    <div class="dades">
+      <div class="c"><label>Entitat</label>${camp("entitat", "gran", "Nom de l'entitat")}</div>
+      <div class="c"><label>Equip</label>${camp("nom", "petit", SESSIO.equip || "Juvenil")}</div>
+      <div class="c"><label>Data inici</label>${camp("dataInici", "petit", "Data inici", "date")}</div>
+      <div class="c"><label>Data fi</label>${camp("dataFi", "petit", "Data fi", "date")}</div>
+      <a class="boto" href="#/registre" style="margin-left:auto">Torna al registre</a>
+    </div>
+  </div>
+
+  <section class="bloc">
+    <h2>Indicadors <span class="cua">percentatge sobre les assistències, excepte assistència, no presentats i justificats, que van sobre els registres</span></h2>
+    <div class="ind-marc">
+      <table class="ind">
+        <thead><tr><th>Tipus</th>${capIndicadors}</tr></thead>
+        <tbody>${files}</tbody>
+      </table>
+    </div>
+    <div class="ind-llegenda">
+      <span><i style="background:var(--st-si)"></i>positiu</span>
+      <span><i style="background:var(--st-proces)"></i>a vigilar</span>
+      <span><i style="background:var(--st-no)"></i>greu</span>
+      <span><i style="background:var(--q2)"></i>justificat</span>
+      <span><i style="background:var(--line-2)"></i>informatiu</span>
+      <span>– no s'aplica a aquest tipus de sessió</span>
+    </div>
+  </section>
+
+  <section class="bloc">
+    <h2>Jugadors <span class="cua">clica per avaluar</span></h2>
+    <div class="ind-marc" style="box-shadow:none;border:0"><table class="plantilla-t">
+      <thead><tr>
+        <th>#</th><th>Jugador/a</th>
+        <th style="text-align:center">Assistència</th>
+        <th style="text-align:center">Retards</th>
+        <th style="text-align:center">Justificats</th>
+        <th style="text-align:center">Comportament</th>
+        <th style="text-align:center">Mitjana</th><th>Repte</th><th></th>
+      </tr></thead>
+      <tbody>${jugadors}</tbody>
+    </table></div>
+  </section>
+
+  <div class="eines" style="margin-top:24px">
+    <button class="boto" type="button" id="obreCopia">Còpia de seguretat</button>
+    <label class="boto" for="pujaDades">Carrega una còpia</label>
+    <input type="file" id="pujaDades" accept=".json,application/json,.txt,text/plain" hidden>
+    <span class="nota" id="avisDades">${POT_DESAR ? "" : "Aquest navegador no desa res en aquesta finestra: fes-te la còpia abans de tancar-la."}</span>
+  </div>
+
+  <div class="plafo" id="plafoCopia" hidden>
+    <p class="plafo-t">Còpia de seguretat</p>
+    <p class="plafo-p">Aquest text és tot: equip, registres diaris i avaluacions. Copia'l i desa'l on vulguis.
+      Per recuperar-ho, enganxa'l aquí i prem <strong>Restaura</strong>.</p>
+    <textarea id="areaCopia" spellcheck="false" aria-label="Dades en text"></textarea>
+    <div class="plafo-b">
+      <button class="boto principal" type="button" id="copiaText">Copia el text</button>
+      <button class="boto" type="button" id="restauraText">Restaura des del text</button>
+      <button class="boto" type="button" id="tancaCopia">Tanca</button>
+      <span class="nota" id="avisCopia"></span>
+    </div>
+  </div>`;
+}
+
+/* ============ VISTA: AVALUACIÓ ============ */
+function vistaQuadre(){
+  const p = DADES.find(x => x.idx === ACTUAL) || DADES[0];
+
+  const chips = DADES.map(j => `<button type="button" data-jug="${j.idx}" aria-pressed="${j.idx === p.idx}">
+      <span class="n">${j.idx}</span>${esc(j.nom || "Sense nom")}</button>`).join("");
+
+  const ft = formalitatTotal(p);
+  const formalitat = `
+    <section class="bloc">
+      <h2>Formalitat <span class="cua">en percentatge</span></h2>
+      <div class="formalitat">
+        ${RUBRICA.formalitat.map(n => `<div class="pct">
+          <label for="f-${esc(n)}">${esc(n)}</label>
+          <input id="f-${esc(n)}" type="number" min="0" max="100" step="5" inputmode="numeric"
+            value="${p.formalitat[n] ?? ""}" data-form="${esc(n)}" placeholder="—"><span class="u">%</span>
+        </div>`).join("")}
+        <div class="pct total">
+          <label>Formalitat</label>
+          <div class="v" id="formTotal">${ft === null ? "—" : Math.round(ft) + "%"}</div>
+        </div>
+      </div>
+    </section>`;
+
+  const respons = `
+    <section class="bloc">
+      <h2>Responsabilitat personal i social <span class="cua">1 a 4 per trimestre</span></h2>
+      <div class="marc">
+        <table class="r" style="min-width:640px">
+          <thead><tr><th>Qualitat</th>${QS.map(q => `<th style="width:64px">${q}</th>`).join("")}<th style="width:90px">Mitjana</th></tr></thead>
+          <tbody>
+            ${p.respons.map((r, ri) => `<tr>
+              <td class="qual">${esc(r.nom)}</td>
+              ${r.q.map((val, qi) => `<td class="q">${tria(val, `data-resp="${ri}" data-q="${qi}"`, `${r.nom} ${QS[qi]}`)}</td>`).join("")}
+              <td class="q" style="background:var(--accent);color:var(--sobre-accent);font-weight:700;
+                  padding:7px 10px;text-align:center" data-mitr="${ri}">${num(mitjanaDe(r.q)) || "·"}</td>
+            </tr>`).join("")}
+          </tbody>
+        </table>
+      </div>
+    </section>`;
+
+  const capNivells = RUBRICA.nivells.map((n, i) =>
+    `<th class="niv">Nivell ${i + 1}<small>${esc(n)}</small></th>`).join("");
+
+  const blocs = p.blocs.map((b, bi) => `
+    <section class="bloc">
+      <h2>${esc(b.titol)}</h2>
+      <div class="marc">
+        <table class="r">
+          <thead><tr>
+            <th style="width:170px">Qualitat</th>
+            ${capNivells}
+            ${QS.map(q => `<th>${q}</th><th>Observacions</th>`).join("")}
+          </tr></thead>
+          <tbody>
+            ${b.items.map((it, ii) => `<tr>
+              <td class="qual">${esc(it.nom)}${it.sub ? `<span>${esc(it.sub)}</span>` : ""}</td>
+              ${it.nivells.map(n => `<td class="niv">${esc(n || "")}</td>`).join("")}
+              ${QS.map((q, qi) => `
+                <td class="q">${tria(it.q[qi], `data-b="${bi}" data-i="${ii}" data-q="${qi}"`, `${it.curt} ${q}`)}</td>
+                <td class="o"><input class="o" type="text" placeholder="Observacions ${q}"
+                  value="${esc(it.obs[qi] || "")}" data-b="${bi}" data-i="${ii}" data-q="${qi}" data-obs="1"
+                  aria-label="Observacions ${esc(it.curt)} ${q}"></td>`).join("")}
+            </tr>`).join("")}
+          </tbody>
+        </table>
+      </div>
+    </section>`).join("");
+
+
+  return `
+  <div class="cap-eines">
+    <a class="tornar" href="#/resum">← Torna al resum de l'equip</a>
+    <a class="boto principal" href="#/informe/${p.idx}">Veure l'informe ↗</a>
+  </div>
+  <div class="cap-quadre">
+    <h1>Avaluació trimestral</h1>
+    <p>Rúbrica completa: rendiment tàctic i valors socioafectius. Tria la nota d'1 a 4 a cada trimestre;
+      la columna de cada nivell diu què vol dir cada puntuació. Tot passa a l'informe del jugador/a.</p>
+  </div>
+
+  <div class="jugadors">${chips}</div>
+
+  <div class="fitxa-jug">
+    <input class="nom" type="text" placeholder="Nom del jugador/a" value="${esc(p.nom || "")}"
+      data-nom="1" aria-label="Nom del jugador ${p.idx}">
+  </div>
+
+  <div class="eines">
+    <button class="boto" type="button" id="obreCopia">Còpia de seguretat</button>
+    <label class="boto" for="pujaDades">Carrega una còpia</label>
+    <input type="file" id="pujaDades" accept=".json,application/json,.txt,text/plain" hidden>
+    <button class="boto" type="button" id="buida">Buida aquest jugador</button>
+    <span class="nota" id="avisDades">${POT_DESAR ? "" : "Aquest navegador no desa res en aquesta finestra: fes-te la còpia abans de tancar-la."}</span>
+  </div>
+
+  <div class="plafo" id="plafoCopia" hidden>
+    <p class="plafo-t">Còpia de seguretat</p>
+    <p class="plafo-p">Aquest text és tota l'avaluació dels dotze jugadors. Copia'l i desa'l on vulguis.
+      Per recuperar-la, enganxa'l aquí i prem <strong>Restaura</strong>.</p>
+    <textarea id="areaCopia" spellcheck="false" aria-label="Dades de l'avaluació en text"></textarea>
+    <div class="plafo-b">
+      <button class="boto principal" type="button" id="copiaText">Copia el text</button>
+      <button class="boto" type="button" id="restauraText">Restaura des del text</button>
+      <button class="boto" type="button" id="tancaCopia">Tanca</button>
+      <span class="nota" id="avisCopia"></span>
+    </div>
+  </div>
+
+  ${formalitat}
+  ${respons}
+  ${blocs}`;
+}
+
+function resumCaselles(p){
+  const files = p.blocs.map(b => ({et: b.titol, mit: mitjanaBloc(b)}));
+  files.push({et: "RESPONSABILITAT PERSONAL I SOCIAL", mit: mitjanaRespons(p)});
+  return files.map(f => `<div class="resum-c">
+      <div class="re">${esc(f.et)}</div>
+      <div class="rn">${num(f.mit) || "·"}</div>
+      <div class="rq">${f.mit === null ? "sense puntuar" : nivell(f.mit)}</div>
+    </div>`).join("");
+}
+
+/* comptes del registre diari, per jugador, dins el rang de dates de l'equip */
+function sessionsFiltrades(tipus){
+  return Object.keys(REGISTRES).filter(clau => {
+    const {data, tipus: t} = parteixClau(clau);
+    if (tipus && t !== tipus) return false;
+    if (EQUIP.dataInici && data < EQUIP.dataInici) return false;
+    if (EQUIP.dataFi && data > EQUIP.dataFi) return false;
+    return true;
+  });
+}
+function resumRegistre(n, tipus){
+  const c = Object.fromEntries(INDICADORS.map(([k]) => [k, 0]));
+  c.correcte = 0;
+  const claus = sessionsFiltrades(tipus);
+  claus.forEach(clau => {
+    const r = (REGISTRES[clau] || {})[n];
+    if (!r) return;
+    /* si no ha vingut, només compten els indicadors d'absència */
+    INDICADORS.forEach(([k]) => {
+      if (!r[k]) return;
+      if (!r.assistencia && !sobreRegistres(k)) return;
+      c[k]++;
+    });
+    if (esCorrecte(r)) c.correcte++;
+  });
+  return Object.assign({dies: claus.length}, c);
+}
+/* totals de l'equip per tipus de sessió, calculats des dels registres */
+function totalsEquip(tipus){
+  const c = Object.fromEntries(INDICADORS.map(([k]) => [k, 0]));
+  c.correcte = 0;
+  const claus = sessionsFiltrades(tipus);
+  claus.forEach(clau => {
+    const dia = REGISTRES[clau] || {};
+    for (let n = 1; n <= NJUGADORS; n++){
+      const r = dia[n];
+      if (!r) continue;
+      INDICADORS.forEach(([k]) => {
+        if (!r[k]) return;
+        if (!r.assistencia && !sobreRegistres(k)) return;
+        c[k]++;
+      });
+      if (esCorrecte(r)) c.correcte++;
+    }
+  });
+  return Object.assign({dies: claus.length, reg: claus.length * NJUGADORS}, c);
+}
+
+/* ============ GRÀFICS ============ */
+/* Cada trimestre porta color I forma de marca: la identitat mai depèn només del color. */
+const FORMES = ["diamant", "quadrat", "triangle"];
+function marca(x, y, forma, color, r = 4){
+  if (forma === "triangle") return `<polygon points="${x},${y-r-1} ${x+r+1},${y+r} ${x-r-1},${y+r}" fill="${color}" stroke="var(--surface)" stroke-width="1.5"/>`;
+  if (forma === "quadrat") return `<rect x="${x-r}" y="${y-r}" width="${2*r}" height="${2*r}" fill="${color}" stroke="var(--surface)" stroke-width="1.5"/>`;
+  /* per defecte, diamant: cap forma rodona en aquest sistema */
+  return `<polygon points="${x},${y-r-1} ${x+r+1},${y} ${x},${y+r+1} ${x-r-1},${y}" fill="${color}" stroke="var(--surface)" stroke-width="1.5"/>`;
+}
+function llegendaQ(){
+  return `<div class="llegenda">${QS.map((q, i) => {
+    const m = {diamant: `<polygon points="6,1 11,6 6,11 1,6" fill="${COLQ[i]}"/>`,
+               quadrat: `<rect x="1.5" y="1.5" width="9" height="9" fill="${COLQ[i]}"/>`,
+               triangle: `<polygon points="6,1 11,10.5 1,10.5" fill="${COLQ[i]}"/>`}[FORMES[i]];
+    return `<span><svg width="12" height="12" aria-hidden="true">${m}</svg>${q}</span>`;
+  }).join("")}</div>`;
+}
+
+function radar(eixos, series){
+  const N = eixos.length, MAX = 4, R = 92, cx = 186, cy = 128;
+  const pt = (i, v) => {
+    const a = -Math.PI / 2 + i * 2 * Math.PI / N, r = R * (v / MAX);
+    return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+  };
+  let s = `<svg class="radar" viewBox="0 0 372 266" width="100%" role="img"
+    aria-label="Perfil de ${esc(eixos.join(", "))}, escala 1 a 4, per trimestre">`;
+  for (let k = 1; k <= MAX; k++)
+    s += `<polygon points="${Array.from({length: N}, (_, i) => pt(i, k).join(",")).join(" ")}" fill="none" stroke="var(--graella)" stroke-width="1"/>`;
+  for (let i = 0; i < N; i++){
+    const [x, y] = pt(i, MAX);
+    s += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--graella)" stroke-width="1"/>`;
+  }
+  series.forEach((se, si) => {
+    if (se.vals.every(v => v == null)) return;
+    const vals = se.vals.map(v => v ?? 0);
+    s += `<polygon points="${vals.map((v, i) => pt(i, v).join(",")).join(" ")}"
+      fill="${se.color}" fill-opacity=".09" stroke="${se.color}" stroke-width="2" stroke-linejoin="round"/>`;
+    vals.forEach((v, i) => {
+      if (se.vals[i] == null) return;
+      const [x, y] = pt(i, v);
+      s += `<g data-tip="<b>${esc(eixos[i])}</b><br>${esc(se.nom)} · ${num(v, 0)} de 4">${marca(x, y, FORMES[si], se.color)}</g>`;
+    });
+  });
+  for (let i = 0; i < N; i++){
+    const a = -Math.PI / 2 + i * 2 * Math.PI / N;
+    const x = cx + (R + 19) * Math.cos(a), y = cy + (R + 19) * Math.sin(a);
+    const anc = Math.abs(Math.cos(a)) < .25 ? "middle" : (Math.cos(a) > 0 ? "start" : "end");
+    s += `<text x="${x}" y="${y + 3.5}" text-anchor="${anc}" font-size="8.5" letter-spacing=".5"
+      fill="var(--muted)" font-weight="600">${esc(eixos[i])}</text>`;
+  }
+  s += `<text x="${cx - 5}" y="${cy - R + 10}" text-anchor="end" font-size="8" fill="var(--muted)">4</text></svg>`;
+  return s;
+}
+
+/* barres agrupades: una pista per trimestre, amb el valor escrit al costat */
+function barresQ(items){
+  return `<div class="grup">` + items.map(it => `
+    <div class="grup-fila">
+      <span class="et">${esc(it.nom)}</span>
+      <div class="pistes">
+        ${it.q.map((v, qi) => `<span class="pista" data-tip="<b>${esc(it.nom)}</b><br>${QS[qi]} · ${v == null ? "sense puntuar" : num(v, 0) + " de 4"}">
+          <span class="tic" style="left:25%"></span><span class="tic" style="left:50%"></span><span class="tic" style="left:75%"></span>
+          ${v == null ? "" : `<span class="fill" style="width:${Math.max(0, Math.min(100, v / 4 * 100))}%;background:${COLQ[qi]}"></span>`}
+          <span class="vq" style="color:${COLQ[qi]}">${v == null ? "·" : num(v, 0)}</span>
+        </span>`).join("")}
+      </div>
+    </div>`).join("") + `</div>`;
+}
+
+/* ============ VISTA: INFORME ============ */
+function camp(pid, clau, ph, classe){
+  const t = DADES.find(x => x.idx === pid)?.textos?.[clau] || "";
+  return `<div class="camp-text ${classe || ""}" contenteditable="true" role="textbox" aria-multiline="true"
+    data-p="${pid}" data-text="${clau}" data-ph="${esc(ph)}">${esc(t)}</div>`;
+}
+
+/* semàfor del repte: color I text, mai només color */
+const ESTATS = [["no", "No assolit"], ["proces", "En procés"], ["si", "Assolit"]];
+function semafor(p){
+  const ara = p.textos?.repteEstat || "";
+  return `<div class="semafor" role="group" aria-label="Estat del repte individual">
+    ${ESTATS.map(([k, et]) => `<button type="button" class="${k}" data-estat="${k}"
+      aria-pressed="${ara === k}"><span class="llum"></span>${et}</button>`).join("")}
+  </div>`;
+}
+
+/* gràfic de barres vertical: una columna per qualitat, amb la mitjana dels tres trimestres */
+function columnes(items){
+  const guies = [1, 2, 3, 4].map(v => `<span class="guia" style="bottom:${v / 4 * 100}%"></span>`).join("");
+  return `<div>
+    <div class="cols">${guies}
+      ${items.map(it => {
+        const v = it.v;
+        const alt = v == null ? 0 : Math.max(2, v / 4 * 100);
+        return `<div class="col" data-tip="<b>${esc(it.nom)}</b><br>Mitjana ${v == null ? "sense puntuar" : num(v) + " de 4"}">
+          <span class="vc" style="bottom:calc(${alt}% + 4px)">${v == null ? "·" : num(v)}</span>
+          ${v == null ? "" : `<span class="columna" style="height:${alt}%"></span>`}
+        </div>`;
+      }).join("")}
+    </div>
+    <div class="cols-et">${items.map(it => `<span>${esc(it.nom)}</span>`).join("")}</div>
+  </div>`;
+}
+
+function vistaInforme(idx){
+  const p = DADES.find(x => x.idx === idx);
+  if (!p) return `<p>No s'ha trobat aquest jugador.</p>`;
+  const bl = c => p.blocs.find(b => b.clau === c);
+  const motrius = bl("motrius"), ambP = bl("ambPilota"), senseP = bl("sensePilota"), valors = bl("valors");
+  const m = mitjanaGlobal(p), ft = formalitatTotal(p);
+  const programa = p.fitxa?.programa || PROGRAMES[0];
+
+  /* una sola sèrie: la mitjana dels tres trimestres */
+  const serieMitjana = items => [{nom: "Mitjana", color: "var(--primari)", vals: items.map(mitjanaItem)}];
+  const radarMotrius = radar(motrius.items.map(i => i.curt), serieMitjana(motrius.items));
+  const radarRespons = radar(p.respons.map(r => r.nom), serieMitjana(p.respons));
+  const cols = b => columnes(b.items.map(i => ({nom: i.curt, v: mitjanaItem(i)})));
+
+  const capcalera = () => `
+    <div class="banda"><span>${esc(p.periode)}</span></div>
+    <div class="cos">
+      <h1 class="titol-informe">Informe ${esc(EQUIP.entitat || "de rendiment")}<small>${esc(p.periode)}</small></h1>`;
+
+  return `
+  <div class="cap-eines">
+    <a class="tornar" href="#/quadre/${p.idx}">← Torna a l'avaluació de ${esc(p.nom || "el jugador " + p.idx)}</a>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      <span class="nota-pag">2 pàgines · perfil i informe escrit</span>
+      <button class="boto principal" type="button" id="fesPdf">⤓ Descarrega en PDF</button>
+    </div>
+  </div>
+
+  <div class="full">
+    ${capcalera()}
+      <div class="fila-seccio">
+        <h2 class="etiqueta-seccio">Perfil del jugador/a</h2>
+        <div class="programa"><select data-p="${p.idx}" data-fitxa="programa" aria-label="Programa">
+          ${PROGRAMES.map(x => `<option${x === programa ? " selected" : ""}>${esc(x)}</option>`).join("")}
+        </select></div>
+      </div>
+
+      <div class="identitat">
+        <div class="foto">Fotografia</div>
+        <h2>${p.nom ? esc(p.nom) : `<span class="buit">Nom del jugador/a</span>`}</h2>
+        <div class="fitxa">
+          ${CAMPS_FITXA.map(([k, et, ph]) => `<span class="l"><b>${esc(et)}</b>
+            <input type="text" value="${esc(p.fitxa?.[k] || "")}" placeholder="${esc(ph)}"
+              data-p="${p.idx}" data-fitxa="${k}" aria-label="${esc(et)}"
+              size="${k === "educador" || k === "equip" ? 14 : 6}"></span>`).join("")}
+          <span class="l"><b>Mitjana</b> <span class="mit">${num(m) || "—"}${m === null ? "" : " · " + nivell(m)}</span></span>
+        </div>
+      </div>
+
+      <section class="seccio centrat">
+        <h3>Repte individual</h3>
+        <div style="margin-top:14px">${camp(p.idx, "repte", "Quin repte es proposa al jugador/a.", "mitja")}</div>
+        ${semafor(p)}
+      </section>
+
+      <section class="seccio">
+        <h3>Formalitat</h3>
+        <div class="form-inf">
+          ${RUBRICA.formalitat.map(n => {
+            const v = p.formalitat[n];
+            return `<div class="form-c"><div class="fe">${esc(n)}</div>
+              <div class="fv">${v == null ? "·" : Math.round(v) + "%"}</div></div>`;
+          }).join("")}
+          <div class="form-c total"><div class="fe">Formalitat</div>
+            <div class="fv">${ft === null ? "·" : Math.round(ft) + "%"}</div></div>
+        </div>
+      </section>
+
+      <section class="seccio">
+        <h3>Característiques del jugador/a</h3>
+        <div class="duo">
+          <div><p class="sub">Habilitats coordinatives<em>Mitjana dels tres trimestres</em></p>${radarMotrius}</div>
+          <div><p class="sub">Responsabilitat personal i social<em>Mitjana dels tres trimestres</em></p>${radarRespons}</div>
+        </div>
+      </section>
+
+      <section class="seccio">
+        <h3>Evolució trimestral</h3>
+        <div class="resum">${resumCaselles(p)}</div>
+      </section>
+
+      <footer class="peu">
+        <span>${NIVELLS.map(n => `${n[0]} ${n[1]}`).join("  ·  ")}</span>
+        <span>Pàgina 1 de 2 · Perfil</span>
+      </footer>
+    </div>
+  </div>
+
+  <div class="full salt">
+    ${capcalera()}
+      <div class="fila-seccio">
+        <h2 class="etiqueta-seccio">Informe escrit</h2>
+        <div class="qui">${p.nom ? esc(p.nom) : "Nom del jugador/a"}</div>
+      </div>
+
+      <section class="seccio">
+        <h3>Moments de joc i valors</h3>
+        <div class="trio">
+          <div><p class="sub">Amb pilota<em>Possessió</em></p>${cols(ambP)}
+            <div style="margin-top:12px">${camp(p.idx, "ambPilota", "Què destaca i què se li proposa quan l'equip té la pilota.")}</div></div>
+          <div><p class="sub">Sense pilota<em>Recuperació</em></p>${cols(senseP)}
+            <div style="margin-top:12px">${camp(p.idx, "sensePilota", "Què destaca i què se li proposa quan l'equip no té la pilota.")}</div></div>
+          <div><p class="sub">Valors de club<em>Escala 1 – 4</em></p>${cols(valors)}
+            <div style="margin-top:12px">${camp(p.idx, "valors", "Com encaixa amb els valors del club.")}</div></div>
+        </div>
+      </section>
+
+      <section class="seccio centrat">
+        <h3>Valoració final</h3>
+        <div style="margin-top:14px">${camp(p.idx, "final", "Descripció del jugador/a i la seva relació amb l'equip, què destaca dins del camp, què se li proposa millorar i el tancament de temporada.", "gran")}</div>
+      </section>
+
+      <footer class="peu">
+        <span>${NIVELLS.map(n => `${n[0]} ${n[1]}`).join("  ·  ")}</span>
+        <span>A destacar (negreta) · A millorar (cursiva) — Pàgina 2 de 2</span>
+      </footer>
+    </div>
+  </div>`;
+}
+
+
+/* ============ EDICIÓ ============ */
+function actual(){ return DADES.find(x => x.idx === ACTUAL) || DADES[0]; }
+
+function onEntrada(e){
+  const el = e.target;
+  const d = el.dataset;
+  let p = d.p ? DADES.find(x => x.idx === Number(d.p)) : actual();
+  if (!p) return;
+
+  if (d.equip !== undefined){ EQUIP[d.equip] = el.value.trim() || null; return desa(); }
+  if (d.ind !== undefined){
+    const n = el.value === "" ? null : Math.max(0, Math.round(Number(el.value)));
+    EQUIP.indicadors[d.ind][d.camp] = isNaN(n) ? null : n;
+    return desa();
+  }
+  if (d.text !== undefined){ p.textos[d.text] = el.innerText.replace(/ /g, " ").trim(); return desa(); }
+  if (d.fitxa !== undefined){ p.fitxa[d.fitxa] = el.value.trim(); return desa(); }
+  if (d.nom !== undefined){
+    p.nom = el.value.trim() || null;
+    const chip = document.querySelector(`.jugadors button[data-jug="${p.idx}"]`);
+    if (chip) chip.innerHTML = `<span class="n">${p.idx}</span>${esc(p.nom || "Sense nom")}`;
+    return desa();
+  }
+  if (d.form !== undefined){
+    const n = el.value === "" ? null : Math.max(0, Math.min(100, Number(el.value)));
+    p.formalitat[d.form] = isNaN(n) ? null : n;
+    const t = formalitatTotal(p);
+    const cel = document.getElementById("formTotal");
+    if (cel) cel.textContent = t === null ? "—" : Math.round(t) + "%";
+    return desa();
+  }
+  if (d.resp !== undefined){
+    const r = p.respons[Number(d.resp)];
+    r.q[Number(d.q)] = puntuacio(el);
+    const cel = document.querySelector(`[data-mitr="${d.resp}"]`);
+    if (cel) cel.textContent = num(mitjanaDe(r.q)) || "·";
+    refrescaResum(p);
+    return desa();
+  }
+  if (d.b !== undefined){
+    const it = p.blocs[Number(d.b)].items[Number(d.i)];
+    if (d.obs !== undefined) it.obs[Number(d.q)] = el.value.trim() || null;
+    else { it.q[Number(d.q)] = puntuacio(el); refrescaResum(p); }
+    return desa();
+  }
+}
+function puntuacio(el){
+  const buit = el.value === "";
+  el.classList.toggle("buida", buit);
+  if (buit) return null;
+  const n = Number(el.value);
+  return isNaN(n) ? null : n;
+}
+function refrescaResum(){ /* el resum viu a l'informe; res a refrescar aquí */ }
+
+/* ============ CÒPIES DE SEGURETAT ============ */
+const textCopia = () => JSON.stringify({versio: 4, desat: new Date().toISOString(), equip: EQUIP, jugadors: DADES, registres: REGISTRES, sessio: SESSIO}, null, 1);
+function obreCopia(){
+  const plafo = document.getElementById("plafoCopia");
+  plafo.hidden = false;
+  const area = document.getElementById("areaCopia");
+  area.value = textCopia();
+  area.focus(); area.setSelectionRange(0, 0);
+  document.getElementById("avisCopia").textContent = "";
+}
+async function copiaText(){
+  const area = document.getElementById("areaCopia"), avis = document.getElementById("avisCopia");
+  area.select();
+  try{
+    if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error("sense API");
+    await navigator.clipboard.writeText(area.value);
+    avis.textContent = "Copiat. Enganxa-ho en un fitxer de text i desa'l.";
+  }catch(e){ avis.textContent = "Prem Cmd+C per copiar el text seleccionat."; }
+}
+function aplicaCopia(cru, avisId){
+  try{
+    const d = JSON.parse(cru);
+    const j = Array.isArray(d) ? d : d.jugadors;
+    if (!Array.isArray(j)) throw new Error("format");
+    if (d && d.registres) REGISTRES = d.registres;
+    if (d && d.equip){
+      EQUIP = Object.assign(equipBuit(), d.equip);
+      TIPUS_SESSIO.forEach(([k]) => { EQUIP.indicadors[k] = Object.assign({dies: null, reg: null}, (d.equip.indicadors || {})[k] || {}); });
+    }
+    DADES = fusiona(j);
+    try{ localStorage.setItem(CLAU, JSON.stringify({equip: EQUIP, jugadors: DADES})); }catch(e){}
+    pinta();
+    const el = document.getElementById(avisId);
+    if (el) el.textContent = "Còpia restaurada.";
+  }catch(err){
+    const el = document.getElementById(avisId);
+    if (el) el.textContent = "Això no és una còpia d'aquesta avaluació.";
+  }
+}
+function carregaCopia(fitxer){
+  const l = new FileReader();
+  l.onload = () => aplicaCopia(l.result, "avisDades");
+  l.readAsText(fitxer);
+}
+
+/* ============ PDF ============ */
+function fesPdf(nom){
+  const original = document.title;
+  document.title = "Informe FGE" + (nom ? " - " + nom : "");
+  addEventListener("afterprint", () => { document.title = original; }, {once: true});
+  setTimeout(() => window.print(), 60);
+}
+
+/* ============ ROUTER ============ */
+function pinta(){
+  const h = location.hash || "#/inici";
+  const app = document.getElementById("app");
+  const mInf = h.match(/^#\/informe\/(\d+)/);
+  const mQua = h.match(/^#\/quadre(?:\/(\d+))?/);
+  if (mInf) ACTUAL = Number(mInf[1]);
+  else if (mQua && mQua[1]) ACTUAL = Number(mQua[1]);
+  const vista = mInf ? "informe" : mQua ? "quadre"
+    : h.startsWith("#/registre") ? "registre"
+    : (h.startsWith("#/resum") || h.startsWith("#/equip")) ? "resum" : "inici";
+  app.innerHTML = {
+    informe: () => vistaInforme(ACTUAL), quadre: vistaQuadre,
+    registre: vistaRegistre, resum: vistaResum, inici: vistaInici
+  }[vista]();
+
+  /* a dalt només hi ha el recorregut principal; avaluació i informe s'obren des de cada jugador */
+  document.getElementById("marcaEntitat").textContent = EQUIP.entitat || "Quadre de Rendiment";
+  document.getElementById("marcaEquip").textContent = EQUIP.nom || SESSIO.equip || "";
+  document.getElementById("nav").innerHTML = vista === "inici" ? "" :
+    `<a href="#/inici">Inici</a>` +
+    `<a href="#/registre"${vista === "registre" ? ' aria-current="page"' : ""}>Registre</a>` +
+    `<a href="#/resum"${vista === "resum" ? ' aria-current="page"' : ""}>Resum</a>`;
+
+  app.querySelectorAll("[data-tip]").forEach(el => {
+    el.addEventListener("mouseenter", e => mostraTip(e, el.dataset.tip));
+    el.addEventListener("mousemove", e => mostraTip(e, el.dataset.tip));
+    el.addEventListener("mouseleave", amagaTip);
+  });
+  app.querySelectorAll(".jugadors button").forEach(b => b.addEventListener("click", () => {
+    ACTUAL = Number(b.dataset.jug); pinta();
+  }));
+  app.querySelectorAll(".semafor button").forEach(b => b.addEventListener("click", () => {
+    const p = actual();
+    p.textos.repteEstat = p.textos.repteEstat === b.dataset.estat ? "" : b.dataset.estat;
+    app.querySelectorAll(".semafor button").forEach(o =>
+      o.setAttribute("aria-pressed", String(o.dataset.estat === p.textos.repteEstat)));
+    desa();
+  }));
+
+  const fe = document.getElementById("formEntrar");
+  if (fe) fe.addEventListener("submit", ev => {
+    ev.preventDefault();
+    SESSIO.equip = document.getElementById("in-equip").value;
+    SESSIO.tipus = document.getElementById("in-tipus").value;
+    SESSIO.data = document.getElementById("in-data").value || avui();
+    desa();
+    location.hash = "#/registre";
+    if (!location.hash.startsWith("#/registre")) pinta();
+  });
+  app.querySelectorAll(".marca-b").forEach(b => b.addEventListener("click", () => {
+    const reg = registreDe(), n = b.dataset.reg, k = b.dataset.item;
+    if (!reg[n]) reg[n] = {};
+    reg[n][k] = !reg[n][k];
+    b.setAttribute("aria-pressed", String(reg[n][k]));
+    b.textContent = reg[n][k] ? "✓" : "";
+    const cel = document.querySelector(`[data-tot="${k}"]`);
+    if (cel) cel.textContent = Array.from({length: NJUGADORS}, (_, i) => reg[i + 1] && reg[i + 1][k]).filter(Boolean).length;
+    desa();
+  }));
+
+  const bx = document.getElementById("verExemple");
+  if (bx) bx.addEventListener("click", () => {
+    if (!confirm("Carrego un exemple d'un mes: 5 setmanes amb 2 entrenaments i 1 partit cada una.\n\nSubstituirà els registres que tinguis ara. Vols continuar?")) return;
+    exempleMes();
+    location.hash = "#/resum";
+    pinta();
+  });
+
+  const bv = document.getElementById("validar");
+  if (bv) bv.addEventListener("click", () => { desa(); location.hash = "#/resum"; });
+
+  const q = id => document.getElementById(id);
+  if (q("fesPdf")) q("fesPdf").addEventListener("click", () => fesPdf(actual().nom));
+  if (q("obreCopia")) q("obreCopia").addEventListener("click", obreCopia);
+  if (q("copiaText")) q("copiaText").addEventListener("click", copiaText);
+  if (q("restauraText")) q("restauraText").addEventListener("click", () => aplicaCopia(q("areaCopia").value, "avisCopia"));
+  if (q("tancaCopia")) q("tancaCopia").addEventListener("click", () => { q("plafoCopia").hidden = true; });
+  if (q("pujaDades")) q("pujaDades").addEventListener("change", e => { if (e.target.files[0]) carregaCopia(e.target.files[0]); });
+  if (q("buida")) q("buida").addEventListener("click", () => {
+    const p = actual();
+    if (!confirm(`Segur que vols esborrar les dades de ${p.nom || "aquest jugador"}? No es pot desfer.`)) return;
+    DADES[DADES.indexOf(p)] = jugadorBuit(p.idx);
+    desa(); pinta();
+  });
+
+  scrollTo(0, 0);
+}
+document.addEventListener("input", onEntrada);
+document.addEventListener("change", onEntrada);
+addEventListener("hashchange", pinta);
+pinta();
+</script>
